@@ -1080,7 +1080,7 @@ export default function App() {
           aria-label="Shopping cart"
         >
           <button
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(42,220,161,.13),transparent_36%),radial-gradient(circle_at_68%_78%,rgba(157,75,207,.14),transparent_42%),rgba(0,0,0,.48)] backdrop-blur-[2px]"
             onClick={() => setCartOpen(false)}
             aria-label="Close cart"
           />
