@@ -347,7 +347,7 @@ export default function App() {
             </a>
             <a
               href="#order-assistance"
-              className="border border-gold px-5 py-3 text-center text-xs uppercase tracking-[.15em] text-gold-light"
+              className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-center text-xs uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
             >
               Order Now
             </a>
