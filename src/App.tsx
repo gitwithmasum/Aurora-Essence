@@ -379,133 +379,44 @@ const sections = [
 function ProductCard({
   product,
   index,
-  expanded,
-  onToggle,
-  onAdd,
+  onOpen,
 }: {
   product: Product;
   index: number;
-  expanded: boolean;
-  onToggle: () => void;
-  onAdd: () => void;
+  onOpen: () => void;
 }) {
-  const profile = profiles[product.name];
   return (
-    <article
-      className={`group relative overflow-hidden rounded-[24px] border bg-[#0d0c0a] p-7 transition ${expanded ? "border-gold/60" : "border-white/10 hover:border-gold/40"}`}
-    >
+    <article className="group relative h-[450px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0d0c0a] p-7 transition hover:-translate-y-1 hover:border-gold/45 hover:shadow-[0_20px_55px_rgba(0,0,0,.45)]">
       <button
-        onClick={onToggle}
-        className="absolute inset-0 z-10"
-        aria-label={`View ${product.name} details`}
+        onClick={onOpen}
+        className="absolute inset-0 z-10 cursor-pointer"
+        aria-label={`Quick view ${product.name}`}
       />
-      <div className="relative h-[394px]">
-        <span className="text-[10px] text-stone-600">
-          {String(index + 1).padStart(2, "0")}
+      <span className="text-[10px] text-stone-600">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+      {product.badge && (
+        <span className="absolute right-5 top-5 border border-gold/30 bg-gold/10 px-2 py-1 text-[8px] tracking-[.15em] text-gold-light">
+          {product.badge}
         </span>
-        {product.badge && (
-          <span className="absolute right-5 top-5 border border-gold/30 bg-gold/10 px-2 py-1 text-[8px] tracking-[.15em] text-gold-light">
-            {product.badge}
-          </span>
-        )}
-        <div
-          className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
-        >
-          <div className="absolute -top-9 left-1/2 h-11 w-[72px] -translate-x-1/2 rounded-t-md bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
-          <span className="grid h-full place-items-center px-3 text-center font-display text-xl tracking-wider text-gold-light">
-            {product.name.toUpperCase()}
-          </span>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <p className="text-[9px] tracking-[.22em] text-gold">
-            {product.brand}
-          </p>
-          <h3 className="font-display text-3xl">{product.name}</h3>
-          <p className="mt-1 text-xs text-stone-400">{product.mood}</p>
-          <p className="mt-2 text-[11px] text-stone-600">{product.notes}</p>
-        </div>
-      </div>
-      {expanded && (
-        <div className="relative z-20 border-t border-gold/25 pt-7">
-          <p className="mb-5 text-[10px] font-semibold uppercase tracking-[.22em] text-gold">
-            Fragrance Profile
-          </p>
-          {profile ? (
-            <div className="space-y-3 text-xs leading-6 text-stone-300">
-              <p>
-                <strong className="text-gold-light">Top notes:</strong>{" "}
-                {profile.top}
-              </p>
-              <p>
-                <strong className="text-gold-light">Middle notes:</strong>{" "}
-                {profile.middle}
-              </p>
-              <p>
-                <strong className="text-gold-light">Base notes:</strong>{" "}
-                {profile.base}
-              </p>
-              <p>
-                <strong className="text-gold-light">Type:</strong>{" "}
-                {profile.type}
-              </p>
-              <p>
-                <strong className="text-gold-light">Best season:</strong>{" "}
-                {profile.season}
-              </p>
-              <p>
-                <strong className="text-gold-light">Best time:</strong>{" "}
-                {profile.time}
-              </p>
-              <p>
-                <strong className="text-gold-light">Suitable for:</strong>{" "}
-                {profile.suitable}
-              </p>
-              <p>
-                <strong className="text-gold-light">Typical longevity:</strong>{" "}
-                {profile.longevity}
-              </p>
-              <p>
-                <strong className="text-gold-light">Projection:</strong>{" "}
-                {profile.projection}
-              </p>
-              <div className="mt-5 rounded-[18px] border border-gold/25 bg-gold/5 p-4">
-                <strong className="text-gold-light">How to use:</strong>{" "}
-                {profile.usage}
-              </div>
-              <p className="text-[10px] leading-5 text-stone-600">
-                *Longevity and projection may vary by skin, weather, batch and
-                application.
-              </p>
-            </div>
-          ) : (
-            <div className="rounded-[18px] border border-gold/25 bg-gold/5 p-4 text-xs leading-6 text-stone-300">
-              <strong className="text-gold-light">Curated gift set:</strong>{" "}
-              {product.notes}. Contact Aurora Essence to select the fragrances
-              and presentation for this set.
-            </div>
-          )}
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            <button
-              onClick={(event) => {
-                event.stopPropagation();
-                onAdd();
-              }}
-              className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-[10px] font-semibold uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black"
-            >
-              Add to Cart
-            </button>
-            <a
-              onClick={(event) => event.stopPropagation()}
-              href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(product.name)}`}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-5 py-3 text-center text-[10px] font-semibold uppercase tracking-[.15em] text-black"
-            >
-              Order Now
-            </a>
-          </div>
-        </div>
       )}
+      <div
+        className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
+      >
+        <div className="absolute -top-9 left-1/2 h-11 w-[72px] -translate-x-1/2 rounded-t-md bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
+        <span className="grid h-full place-items-center px-3 text-center font-display text-xl tracking-wider text-gold-light">
+          {product.name.toUpperCase()}
+        </span>
+      </div>
+      <div className="absolute bottom-7 left-7 right-7">
+        <p className="text-[9px] tracking-[.22em] text-gold">{product.brand}</p>
+        <h3 className="font-display text-3xl">{product.name}</h3>
+        <p className="mt-1 text-xs text-stone-400">{product.mood}</p>
+        <p className="mt-2 text-[11px] text-stone-600">{product.notes}</p>
+        <span className="mt-4 inline-flex items-center gap-2 text-[9px] uppercase tracking-[.16em] text-gold-light">
+          Quick view <ChevronRight size={13} />
+        </span>
+      </div>
     </article>
   );
 }
@@ -513,11 +424,23 @@ function ProductCard({
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
-  const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cartCount, setCartCount] = useState(0);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
+  };
+  const selectedIndex = selectedProduct
+    ? products.findIndex((product) => product.name === selectedProduct.name)
+    : -1;
+  const selectedProfile = selectedProduct
+    ? profiles[selectedProduct.name]
+    : undefined;
+  const moveProduct = (direction: number) => {
+    if (selectedIndex < 0) return;
+    setSelectedProduct(
+      products[(selectedIndex + direction + products.length) % products.length],
+    );
   };
 
   return (
@@ -748,11 +671,7 @@ export default function App() {
                 key={p.name}
                 product={p}
                 index={i}
-                expanded={expandedProduct === p.name}
-                onToggle={() =>
-                  setExpandedProduct(expandedProduct === p.name ? null : p.name)
-                }
-                onAdd={() => setCartCount((count) => count + 1)}
+                onOpen={() => setSelectedProduct(p)}
               />
             ))}
         </div>
@@ -778,13 +697,7 @@ export default function App() {
                   key={p.name}
                   product={p}
                   index={i}
-                  expanded={expandedProduct === p.name}
-                  onToggle={() =>
-                    setExpandedProduct(
-                      expandedProduct === p.name ? null : p.name,
-                    )
-                  }
-                  onAdd={() => setCartCount((count) => count + 1)}
+                  onOpen={() => setSelectedProduct(p)}
                 />
               ))}
           </div>
@@ -819,13 +732,7 @@ export default function App() {
                     key={p.name}
                     product={p}
                     index={i}
-                    expanded={expandedProduct === p.name}
-                    onToggle={() =>
-                      setExpandedProduct(
-                        expandedProduct === p.name ? null : p.name,
-                      )
-                    }
-                    onAdd={() => setCartCount((count) => count + 1)}
+                    onOpen={() => setSelectedProduct(p)}
                   />
                 ))}
             </div>
@@ -926,6 +833,149 @@ export default function App() {
           <span>Personal guidance · Gift selection · Fragrance matching</span>
         </div>
       </section>
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-black/80 p-0 backdrop-blur-md sm:items-center sm:p-5"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedProduct.name} quick view`}
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="relative max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] border border-gold/45 bg-[radial-gradient(circle_at_15%_10%,rgba(42,220,161,.10),transparent_30%),radial-gradient(circle_at_85%_10%,rgba(157,75,207,.12),transparent_32%),#090806] shadow-[0_0_80px_rgba(0,0,0,.75)] sm:max-w-5xl sm:rounded-[32px]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute right-5 top-5 z-20 grid h-10 w-10 place-items-center rounded-full border border-gold/40 bg-black/70 text-gold-light hover:bg-gold hover:text-black"
+              aria-label="Close quick view"
+            >
+              <X size={17} />
+            </button>
+            <div className="grid lg:grid-cols-[.85fr_1.15fr]">
+              <div className="relative grid min-h-[400px] place-items-center overflow-hidden border-b border-gold/20 bg-[radial-gradient(circle,rgba(213,173,85,.16),transparent_60%)] lg:min-h-[680px] lg:border-b-0 lg:border-r">
+                <span className="absolute left-7 top-7 text-[9px] tracking-[.22em] text-gold">
+                  {selectedProduct.brand}
+                </span>
+                <div
+                  className={`relative h-72 w-44 rounded-[36px] border border-gold/45 bg-gradient-to-br ${selectedProduct.tone} shadow-[0_35px_65px_rgba(0,0,0,.65)]`}
+                >
+                  <div className="absolute -top-12 left-1/2 h-14 w-24 -translate-x-1/2 rounded-t-lg bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
+                  <span className="grid h-full place-items-center px-5 text-center font-display text-2xl tracking-wider text-gold-light">
+                    {selectedProduct.name.toUpperCase()}
+                  </span>
+                </div>
+                <div className="absolute bottom-6 flex gap-3">
+                  <button
+                    onClick={() => moveProduct(-1)}
+                    className="rounded-full border border-gold/35 px-4 py-2 text-[9px] uppercase tracking-widest text-gold-light"
+                  >
+                    ← Previous
+                  </button>
+                  <button
+                    onClick={() => moveProduct(1)}
+                    className="rounded-full border border-gold/35 px-4 py-2 text-[9px] uppercase tracking-widest text-gold-light"
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+              <div className="p-6 pb-28 sm:p-10 sm:pb-28">
+                <p className="text-[10px] uppercase tracking-[.24em] text-gold">
+                  Fragrance Quick View
+                </p>
+                <h2 className="mt-3 pr-12 font-display text-5xl leading-none sm:text-6xl">
+                  {selectedProduct.name}
+                </h2>
+                <p className="mt-3 text-sm text-stone-400">
+                  {selectedProduct.mood}
+                </p>
+                {selectedProfile ? (
+                  <>
+                    <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                      {[
+                        ["Top Notes", selectedProfile.top],
+                        ["Middle Notes", selectedProfile.middle],
+                        ["Base Notes", selectedProfile.base],
+                      ].map(([label, value]) => (
+                        <div
+                          key={label}
+                          className="rounded-[20px] border border-gold/25 bg-gold/5 p-4"
+                        >
+                          <p className="text-[9px] uppercase tracking-[.18em] text-gold">
+                            {label}
+                          </p>
+                          <p className="mt-2 text-xs leading-5 text-stone-300">
+                            {value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      {[
+                        ["Type", selectedProfile.type],
+                        ["Best Season", selectedProfile.season],
+                        ["Best Time", selectedProfile.time],
+                        ["Suitable For", selectedProfile.suitable],
+                        ["Longevity", selectedProfile.longevity],
+                        ["Projection", selectedProfile.projection],
+                      ].map(([label, value]) => (
+                        <div
+                          key={label}
+                          className="border-b border-gold/15 p-3"
+                        >
+                          <p className="text-[8px] uppercase tracking-[.16em] text-gold">
+                            {label}
+                          </p>
+                          <p className="mt-1 text-[11px] leading-5 text-stone-300">
+                            {value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 rounded-[20px] border border-gold/30 bg-black/35 p-5">
+                      <p className="text-[9px] uppercase tracking-[.18em] text-gold">
+                        How to use
+                      </p>
+                      <p className="mt-2 text-xs leading-6 text-stone-300">
+                        {selectedProfile.usage}
+                      </p>
+                    </div>
+                    <p className="mt-3 text-[9px] leading-4 text-stone-600">
+                      *Longevity and projection may vary by skin, weather, batch
+                      and application.
+                    </p>
+                  </>
+                ) : (
+                  <div className="mt-8 rounded-[20px] border border-gold/30 bg-gold/5 p-6 text-sm leading-7 text-stone-300">
+                    <strong className="text-gold-light">
+                      Curated gift set:
+                    </strong>{" "}
+                    {selectedProduct.notes}. Contact Aurora Essence to customize
+                    the fragrance selection and presentation.
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="sticky bottom-0 z-20 grid gap-3 border-t border-gold/25 bg-black/90 p-4 backdrop-blur-xl sm:grid-cols-2 sm:px-10">
+              <button
+                onClick={() => setCartCount((count) => count + 1)}
+                className="rounded-full border border-gold bg-gold/5 px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black"
+              >
+                Add to Cart
+              </button>
+              <a
+                href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(selectedProduct.name)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-6 py-4 text-center text-[10px] font-semibold uppercase tracking-[.16em] text-black"
+              >
+                Order Now
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
       <footer className="border-t border-white/10 px-6 py-10 text-center text-xs text-stone-600">
         © {new Date().getFullYear()} Aurora Essence · Discover Your Signature
         Aura.
