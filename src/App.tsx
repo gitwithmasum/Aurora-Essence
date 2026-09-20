@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   ArrowUpRight,
+  CheckCircle2,
   ChevronRight,
   Gift,
   Menu,
@@ -426,6 +427,7 @@ export default function App() {
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cartCount, setCartCount] = useState(0);
+  const [addedProduct, setAddedProduct] = useState<Product | null>(null);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
@@ -440,6 +442,17 @@ export default function App() {
     if (selectedIndex < 0) return;
     setSelectedProduct(
       products[(selectedIndex + direction + products.length) % products.length],
+    );
+  };
+  const addToCart = (product: Product) => {
+    setCartCount((count) => count + 1);
+    setAddedProduct(product);
+    window.setTimeout(
+      () =>
+        setAddedProduct((current) =>
+          current?.name === product.name ? null : current,
+        ),
+      3500,
     );
   };
 
@@ -959,7 +972,7 @@ export default function App() {
             </div>
             <div className="sticky bottom-0 z-20 grid gap-3 border-t border-gold/25 bg-black/90 p-4 backdrop-blur-xl sm:grid-cols-2 sm:px-10">
               <button
-                onClick={() => setCartCount((count) => count + 1)}
+                onClick={() => addToCart(selectedProduct)}
                 className="rounded-full border border-gold bg-gold/5 px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black"
               >
                 Add to Cart
@@ -973,6 +986,53 @@ export default function App() {
                 Order Now
               </a>
             </div>
+          </div>
+        </div>
+      )}
+      {addedProduct && (
+        <div className="fixed right-4 top-24 z-[120] w-[calc(100%-2rem)] max-w-sm overflow-hidden rounded-[24px] border border-gold/55 bg-[radial-gradient(circle_at_0%_0%,rgba(42,220,161,.16),transparent_38%),radial-gradient(circle_at_100%_0%,rgba(157,75,207,.18),transparent_42%),rgba(7,7,6,.97)] shadow-[0_24px_70px_rgba(0,0,0,.7),0_0_30px_rgba(213,173,85,.12)] backdrop-blur-xl">
+          <div className="h-1 w-full bg-gradient-to-r from-emerald-400 via-gold to-purple-500" />
+          <div className="flex gap-4 p-5">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold-light">
+              <CheckCircle2 size={21} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[9px] uppercase tracking-[.2em] text-gold">
+                Added to Cart
+              </p>
+              <h3 className="mt-1 truncate font-display text-2xl">
+                {addedProduct.name}
+              </h3>
+              <p className="mt-1 text-[11px] text-stone-500">
+                Your cart now has {cartCount}{" "}
+                {cartCount === 1 ? "item" : "items"}.
+              </p>
+            </div>
+            <button
+              onClick={() => setAddedProduct(null)}
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/10 text-stone-400 hover:border-gold/40 hover:text-gold-light"
+              aria-label="Close notification"
+            >
+              <X size={14} />
+            </button>
+          </div>
+          <div className="grid grid-cols-2 border-t border-gold/15">
+            <button
+              onClick={() => setAddedProduct(null)}
+              className="px-4 py-3 text-[9px] uppercase tracking-[.16em] text-stone-400 hover:bg-white/5"
+            >
+              Continue Shopping
+            </button>
+            <a
+              href="#collection"
+              onClick={() => {
+                setAddedProduct(null);
+                setSelectedProduct(null);
+              }}
+              className="border-l border-gold/15 bg-gold/5 px-4 py-3 text-center text-[9px] uppercase tracking-[.16em] text-gold-light hover:bg-gold hover:text-black"
+            >
+              View Cart
+            </a>
           </div>
         </div>
       )}
