@@ -1,0 +1,1 @@
+import Component from "@/components/ui/triangle-led-front";export default function Default(){return <div className="relative h-[640px] w-full overflow-hidden bg-black"><style>{`.lil-gui { display: none !important; }`}</style><Component/></div>}

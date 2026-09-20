@@ -1,15 +1,21 @@
 # Aurora Essence
 
-A responsive, black-and-gold fragrance storefront for Aurora Essence.
+A responsive React + TypeScript + Tailwind storefront with a shadcn-compatible component structure.
 
-## Preview locally
+## Local development
 
-Open `index.html` in a browser, or serve the folder with any static web server.
+```bash
+npm install
+npm run dev
+```
 
-## GitHub Pages
+Production check: `npm run build`.
 
-In repository **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, then save.
+## Component paths
 
-## Brand asset
+- UI component: `src/components/ui/triangle-led-front.tsx`
+- Renderer: `src/components/ui/triangle-led-front-utils/renderer.ts`
+- Demo: `src/components/demo.tsx`
+- Global styles: `src/index.css`
 
-The website uses the original Aurora Essence logo supplied by the brand owner in `assets/aurora-essence-logo.png`.
+The animated triangle LED canvas is used behind the homepage hero. It has no required props, assets, providers, or external rendering dependency.
