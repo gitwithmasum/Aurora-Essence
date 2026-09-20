@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -58,6 +58,33 @@ const discover = [
   { label: "Find Your Scent", href: "#finder" },
   { label: "About Aurora Essence", href: "#story" },
   { label: "Order Assistance", href: "#order-assistance" },
+];
+
+const storySlides = [
+  {
+    src: "story-concentration-guide.webp",
+    alt: "Aurora Essence perfume concentration guide",
+  },
+  {
+    src: "story-citrus-spice.webp",
+    alt: "Aurora Essence citrus and spice fragrance concept",
+  },
+  {
+    src: "story-remembered.webp",
+    alt: "Aurora Essence fragrance brand message",
+  },
+  {
+    src: "story-brand-message.webp",
+    alt: "Aurora Essence premium fragrance presentation",
+  },
+  {
+    src: "story-blue-edition.webp",
+    alt: "Aurora Essence blue fragrance edition",
+  },
+  {
+    src: "story-collection.webp",
+    alt: "Aurora Essence fragrance collection",
+  },
 ];
 
 const products: Product[] = [
@@ -437,7 +464,15 @@ export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
+  const [storySlide, setStorySlide] = useState(0);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  useEffect(() => {
+    const timer = window.setInterval(
+      () => setStorySlide((slide) => (slide + 1) % storySlides.length),
+      5000,
+    );
+    return () => window.clearInterval(timer);
+  }, []);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
@@ -829,17 +864,41 @@ export default function App() {
         className="mx-auto my-10 max-w-[1500px] scroll-mt-24 overflow-hidden rounded-[28px] border border-gold/35 bg-[radial-gradient(circle_at_8%_10%,rgba(42,220,161,.10),transparent_28%),radial-gradient(circle_at_92%_18%,rgba(157,75,207,.12),transparent_32%),linear-gradient(145deg,rgba(213,173,85,.05),#050505_45%)] shadow-[inset_0_0_45px_rgba(213,173,85,.03),0_16px_50px_rgba(0,0,0,.35)] transition hover:border-gold/55"
       >
         <div className="grid lg:grid-cols-[.9fr_1.1fr]">
-          <div className="relative grid min-h-[420px] place-items-center border-b border-gold/20 bg-[radial-gradient(circle,rgba(213,173,85,.19),transparent_56%)] p-10 lg:min-h-[620px] lg:border-b-0 lg:border-r">
-            <div className="absolute h-80 w-80 max-w-[78vw] rounded-full border border-gold/20" />
-            <div className="absolute h-64 w-64 max-w-[64vw] rounded-full border border-dashed border-gold/25" />
-            <img
-              src={`${import.meta.env.BASE_URL}assets/aurora-essence-logo.png`}
-              className="relative w-64 max-w-[62vw] mix-blend-screen"
-              alt="Aurora Essence logo"
-            />
-            <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between border-t border-gold/20 pt-5 text-[9px] uppercase tracking-[.2em] text-stone-500">
-              <span>Born from scent</span>
-              <span className="text-gold">Bangladesh</span>
+          <div className="relative min-h-[430px] overflow-hidden border-b border-gold/20 bg-black lg:min-h-[720px] lg:border-b-0 lg:border-r">
+            {storySlides.map((slide, index) => (
+              <img
+                key={slide.src}
+                src={`${import.meta.env.BASE_URL}assets/${slide.src}`}
+                alt={slide.alt}
+                className={`absolute inset-0 h-full w-full object-contain transition-all duration-1000 ease-out ${index === storySlide ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`}
+              />
+            ))}
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent_64%,rgba(0,0,0,.88))]" />
+            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 sm:bottom-8 sm:left-8 sm:right-8">
+              <div>
+                <p className="text-[9px] uppercase tracking-[.22em] text-gold">
+                  Aurora visual story
+                </p>
+                <p className="mt-2 text-xs text-stone-300">
+                  A new chapter every five seconds
+                </p>
+              </div>
+              <div
+                className="flex gap-2"
+                role="tablist"
+                aria-label="Aurora story gallery"
+              >
+                {storySlides.map((slide, index) => (
+                  <button
+                    key={slide.src}
+                    onClick={() => setStorySlide(index)}
+                    className={`h-2 rounded-full border border-gold/60 transition-all ${index === storySlide ? "w-7 bg-gold" : "w-2 bg-black/70 hover:bg-gold/50"}`}
+                    aria-label={`Show image ${index + 1}`}
+                    aria-selected={index === storySlide}
+                    role="tab"
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
