@@ -968,6 +968,76 @@ export default function App() {
               </p>
             </div>
 
+            <div className="mt-10 grid gap-6 border-y border-gold/20 py-8 sm:grid-cols-[.72fr_1.28fr]">
+              <div>
+                <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+                  The name
+                </p>
+                <h3 className="mt-3 font-display text-3xl text-gold-light">
+                  Aurora + Essence
+                </h3>
+              </div>
+              <p className="text-sm leading-7 text-stone-400">
+                “Aurora” নতুন আলো, নতুন অনুভূতি ও পরিবর্তনের প্রতীক। “Essence”
+                হলো একজন মানুষের নিজস্ব character। একসঙ্গে Aurora Essence এমন
+                একটি fragrance identity বোঝায়, যা আপনার presence-কে আলাদা করে
+                এবং স্মৃতিতে রেখে যায়।
+              </p>
+            </div>
+
+            <div className="mt-10">
+              <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+                Our road ahead
+              </p>
+              <div className="mt-5 space-y-3">
+                {[
+                  [
+                    "01",
+                    "Curate & understand",
+                    "Popular Arabian fragrances দিয়ে শুরু করে customer preference, climate এবং budget অনুযায়ী কোন scent ভালো কাজ করে তা বোঝা।",
+                  ],
+                  [
+                    "02",
+                    "Connect closer to the source",
+                    "ভবিষ্যতে Saudi Arabia ও Middle Eastern supplier network-এর সঙ্গে সরাসরি কাজ করে আরও thoughtful selection তৈরি করা।",
+                  ],
+                  [
+                    "03",
+                    "Build a complete scent destination",
+                    "Online discovery থেকে offline experience পর্যন্ত—consultation, gifting এবং personal fragrance matching সহজ করা।",
+                  ],
+                ].map(([number, title, copy]) => (
+                  <article
+                    key={number}
+                    className="grid gap-4 rounded-[20px] border border-white/10 bg-black/30 p-5 transition hover:border-gold/40 sm:grid-cols-[48px_1fr]"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-full border border-gold/35 text-[10px] text-gold">
+                      {number}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl text-stone-200">
+                        {title}
+                      </h3>
+                      <p className="mt-2 text-xs leading-6 text-stone-500">
+                        {copy}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <blockquote className="mt-10 border-l-2 border-gold px-6 py-2">
+              <p className="font-display text-2xl leading-9 text-stone-200">
+                “আমাদের লক্ষ্য শুধু perfume বিক্রি করা নয়—সঠিক fragrance-এর
+                মাধ্যমে মানুষকে নিজের presence আরও confidently প্রকাশ করতে
+                সাহায্য করা।”
+              </p>
+              <footer className="mt-4 text-[10px] uppercase tracking-[.2em] text-gold">
+                The Aurora Essence vision
+              </footer>
+            </blockquote>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#collection"
