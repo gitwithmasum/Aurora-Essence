@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -58,33 +58,6 @@ const discover = [
   { label: "Find Your Scent", href: "#finder" },
   { label: "About Aurora Essence", href: "#story" },
   { label: "Order Assistance", href: "#order-assistance" },
-];
-
-const storySlides = [
-  {
-    src: "story-concentration-guide.webp",
-    alt: "Aurora Essence perfume concentration guide",
-  },
-  {
-    src: "story-citrus-spice.webp",
-    alt: "Aurora Essence citrus and spice fragrance concept",
-  },
-  {
-    src: "story-remembered.webp",
-    alt: "Aurora Essence fragrance brand message",
-  },
-  {
-    src: "story-brand-message.webp",
-    alt: "Aurora Essence premium fragrance presentation",
-  },
-  {
-    src: "story-blue-edition.webp",
-    alt: "Aurora Essence blue fragrance edition",
-  },
-  {
-    src: "story-collection.webp",
-    alt: "Aurora Essence fragrance collection",
-  },
 ];
 
 const finderQuestions = [
@@ -500,7 +473,6 @@ export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
-  const [storySlide, setStorySlide] = useState(0);
   const [finderStep, setFinderStep] = useState(0);
   const [finderAnswers, setFinderAnswers] = useState<Record<string, string>>(
     {},
@@ -517,13 +489,6 @@ export default function App() {
       return product.category === "unisex" || product.category === "attar";
     })
     .slice(0, 3);
-  useEffect(() => {
-    const timer = window.setInterval(
-      () => setStorySlide((slide) => (slide + 1) % storySlides.length),
-      5000,
-    );
-    return () => window.clearInterval(timer);
-  }, []);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
@@ -1036,197 +1001,155 @@ export default function App() {
         id="story"
         className="mx-auto my-10 max-w-[1500px] scroll-mt-24 overflow-hidden rounded-[28px] border border-gold/35 bg-[radial-gradient(circle_at_8%_10%,rgba(42,220,161,.10),transparent_28%),radial-gradient(circle_at_92%_18%,rgba(157,75,207,.12),transparent_32%),linear-gradient(145deg,rgba(213,173,85,.05),#050505_45%)] shadow-[inset_0_0_45px_rgba(213,173,85,.03),0_16px_50px_rgba(0,0,0,.35)] transition hover:border-gold/55"
       >
-        <div className="grid lg:grid-cols-[.9fr_1.1fr]">
-          <div className="relative min-h-[430px] overflow-hidden border-b border-gold/20 bg-black lg:min-h-[720px] lg:border-b-0 lg:border-r">
-            {storySlides.map((slide, index) => (
-              <img
-                key={slide.src}
-                src={`${import.meta.env.BASE_URL}assets/${slide.src}`}
-                alt={slide.alt}
-                className={`absolute inset-0 h-full w-full object-contain transition-all duration-1000 ease-out ${index === storySlide ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`}
-              />
-            ))}
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent_64%,rgba(0,0,0,.88))]" />
-            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 sm:bottom-8 sm:left-8 sm:right-8">
-              <div>
-                <p className="text-[9px] uppercase tracking-[.22em] text-gold">
-                  Aurora visual story
-                </p>
-                <p className="mt-2 text-xs text-stone-300">
-                  A new chapter every five seconds
-                </p>
-              </div>
-              <div
-                className="flex gap-2"
-                role="tablist"
-                aria-label="Aurora story gallery"
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
+          <p className="text-[11px] tracking-[.28em] text-gold">OUR STORY</p>
+          <h2 className="mt-5 max-w-4xl font-display text-5xl leading-[.95] sm:text-6xl">
+            A fragrance should feel personal,{" "}
+            <em className="text-gold-light">never complicated.</em>
+          </h2>
+          <p className="mt-8 max-w-4xl text-base leading-8 text-stone-300">
+            Aurora Essence শুরু হয়েছে একটি সহজ বিশ্বাস থেকে—luxury fragrance
+            শুধু একটি bottle নয়; এটি mood, memory এবং personality-এর একটি
+            প্রকাশ। তাই Middle Eastern perfumery-এর rich, warm এবং expressive
+            scent profile-গুলোকে বাংলাদেশের fragrance lovers-এর কাছে সহজভাবে
+            তুলে ধরাই আমাদের উদ্দেশ্য।
+          </p>
+          <p className="mt-5 max-w-4xl text-sm leading-7 text-stone-500">
+            আমরা শুধু perfume দেখাতে চাই না। প্রতিটি scent-এর notes, character,
+            season, occasion, ব্যবহারবিধি এবং সাধারণ performance বুঝিয়ে দিতে
+            চাই—যাতে trend দেখে নয়, নিজের lifestyle ও taste অনুযায়ী fragrance
+            বেছে নেওয়া যায়।
+          </p>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            {[
+              [
+                "01",
+                "Curated with context",
+                "Notes, mood and use-case explained clearly.",
+              ],
+              [
+                "02",
+                "Accessible luxury",
+                "Premium-feeling choices for different preferences.",
+              ],
+              [
+                "03",
+                "Guided discovery",
+                "Personal support before you confirm an order.",
+              ],
+            ].map(([number, title, copy]) => (
+              <article
+                key={number}
+                className="rounded-[20px] border border-gold/25 bg-black/35 p-5 transition hover:-translate-y-1 hover:border-gold/55"
               >
-                {storySlides.map((slide, index) => (
-                  <button
-                    key={slide.src}
-                    onClick={() => setStorySlide(index)}
-                    className={`h-2 rounded-full border border-gold/60 transition-all ${index === storySlide ? "w-7 bg-gold" : "w-2 bg-black/70 hover:bg-gold/50"}`}
-                    aria-label={`Show image ${index + 1}`}
-                    aria-selected={index === storySlide}
-                    role="tab"
-                  />
-                ))}
-              </div>
-            </div>
+                <span className="text-[10px] tracking-[.2em] text-gold">
+                  {number}
+                </span>
+                <h3 className="mt-5 font-display text-xl text-gold-light">
+                  {title}
+                </h3>
+                <p className="mt-3 text-xs leading-5 text-stone-500">{copy}</p>
+              </article>
+            ))}
           </div>
 
-          <div className="px-6 py-14 sm:px-10 lg:px-14 lg:py-20">
-            <p className="text-[11px] tracking-[.28em] text-gold">OUR STORY</p>
-            <h2 className="mt-5 max-w-2xl font-display text-5xl leading-[.95] sm:text-6xl">
-              A fragrance should feel personal,{" "}
-              <em className="text-gold-light">never complicated.</em>
-            </h2>
-            <p className="mt-8 max-w-2xl text-base leading-8 text-stone-300">
-              Aurora Essence শুরু হয়েছে একটি সহজ বিশ্বাস থেকে—luxury fragrance
-              শুধু একটি bottle নয়; এটি mood, memory এবং personality-এর একটি
-              প্রকাশ। তাই Middle Eastern perfumery-এর rich, warm এবং expressive
-              scent profile-গুলোকে বাংলাদেশের fragrance lovers-এর কাছে সহজভাবে
-              তুলে ধরাই আমাদের উদ্দেশ্য।
+          <div className="mt-10 rounded-[22px] border border-gold/25 bg-gold/[.035] p-6">
+            <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+              What we are building
             </p>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-stone-500">
-              আমরা শুধু perfume দেখাতে চাই না। প্রতিটি scent-এর notes,
-              character, season, occasion, ব্যবহারবিধি এবং সাধারণ performance
-              বুঝিয়ে দিতে চাই—যাতে trend দেখে নয়, নিজের lifestyle ও taste
-              অনুযায়ী fragrance বেছে নেওয়া যায়।
+            <p className="mt-3 text-sm leading-7 text-stone-400">
+              একটি trusted online এবং offline fragrance destination—যেখানে
+              discovery সহজ হবে, product information পরিষ্কার থাকবে এবং every
+              budget-conscious perfume lover নিজের signature aura খুঁজে পাবেন।
             </p>
+          </div>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+          <div className="mt-10 grid gap-6 border-y border-gold/20 py-8 sm:grid-cols-[.72fr_1.28fr]">
+            <div>
+              <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+                The name
+              </p>
+              <h3 className="mt-3 font-display text-3xl text-gold-light">
+                Aurora + Essence
+              </h3>
+            </div>
+            <p className="text-sm leading-7 text-stone-400">
+              “Aurora” নতুন আলো, নতুন অনুভূতি ও পরিবর্তনের প্রতীক। “Essence” হলো
+              একজন মানুষের নিজস্ব character। একসঙ্গে Aurora Essence এমন একটি
+              fragrance identity বোঝায়, যা আপনার presence-কে আলাদা করে এবং
+              স্মৃতিতে রেখে যায়।
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+              Our road ahead
+            </p>
+            <div className="mt-5 space-y-3">
               {[
                 [
                   "01",
-                  "Curated with context",
-                  "Notes, mood and use-case explained clearly.",
+                  "Curate & understand",
+                  "Popular Arabian fragrances দিয়ে শুরু করে customer preference, climate এবং budget অনুযায়ী কোন scent ভালো কাজ করে তা বোঝা।",
                 ],
                 [
                   "02",
-                  "Accessible luxury",
-                  "Premium-feeling choices for different preferences.",
+                  "Connect closer to the source",
+                  "ভবিষ্যতে Saudi Arabia ও Middle Eastern supplier network-এর সঙ্গে সরাসরি কাজ করে আরও thoughtful selection তৈরি করা।",
                 ],
                 [
                   "03",
-                  "Guided discovery",
-                  "Personal support before you confirm an order.",
+                  "Build a complete scent destination",
+                  "Online discovery থেকে offline experience পর্যন্ত—consultation, gifting এবং personal fragrance matching সহজ করা।",
                 ],
               ].map(([number, title, copy]) => (
                 <article
                   key={number}
-                  className="rounded-[20px] border border-gold/25 bg-black/35 p-5 transition hover:-translate-y-1 hover:border-gold/55"
+                  className="grid gap-4 rounded-[20px] border border-white/10 bg-black/30 p-5 transition hover:border-gold/40 sm:grid-cols-[48px_1fr]"
                 >
-                  <span className="text-[10px] tracking-[.2em] text-gold">
+                  <span className="grid h-11 w-11 place-items-center rounded-full border border-gold/35 text-[10px] text-gold">
                     {number}
                   </span>
-                  <h3 className="mt-5 font-display text-xl text-gold-light">
-                    {title}
-                  </h3>
-                  <p className="mt-3 text-xs leading-5 text-stone-500">
-                    {copy}
-                  </p>
+                  <div>
+                    <h3 className="font-display text-xl text-stone-200">
+                      {title}
+                    </h3>
+                    <p className="mt-2 text-xs leading-6 text-stone-500">
+                      {copy}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
+          </div>
 
-            <div className="mt-10 rounded-[22px] border border-gold/25 bg-gold/[.035] p-6">
-              <p className="text-[10px] uppercase tracking-[.22em] text-gold">
-                What we are building
-              </p>
-              <p className="mt-3 text-sm leading-7 text-stone-400">
-                একটি trusted online এবং offline fragrance destination—যেখানে
-                discovery সহজ হবে, product information পরিষ্কার থাকবে এবং every
-                budget-conscious perfume lover নিজের signature aura খুঁজে পাবেন।
-              </p>
-            </div>
+          <blockquote className="mt-10 border-l-2 border-gold px-6 py-2">
+            <p className="font-display text-2xl leading-9 text-stone-200">
+              “আমাদের লক্ষ্য শুধু perfume বিক্রি করা নয়—সঠিক fragrance-এর
+              মাধ্যমে মানুষকে নিজের presence আরও confidently প্রকাশ করতে সাহায্য
+              করা।”
+            </p>
+            <footer className="mt-4 text-[10px] uppercase tracking-[.2em] text-gold">
+              The Aurora Essence vision
+            </footer>
+          </blockquote>
 
-            <div className="mt-10 grid gap-6 border-y border-gold/20 py-8 sm:grid-cols-[.72fr_1.28fr]">
-              <div>
-                <p className="text-[10px] uppercase tracking-[.22em] text-gold">
-                  The name
-                </p>
-                <h3 className="mt-3 font-display text-3xl text-gold-light">
-                  Aurora + Essence
-                </h3>
-              </div>
-              <p className="text-sm leading-7 text-stone-400">
-                “Aurora” নতুন আলো, নতুন অনুভূতি ও পরিবর্তনের প্রতীক। “Essence”
-                হলো একজন মানুষের নিজস্ব character। একসঙ্গে Aurora Essence এমন
-                একটি fragrance identity বোঝায়, যা আপনার presence-কে আলাদা করে
-                এবং স্মৃতিতে রেখে যায়।
-              </p>
-            </div>
-
-            <div className="mt-10">
-              <p className="text-[10px] uppercase tracking-[.22em] text-gold">
-                Our road ahead
-              </p>
-              <div className="mt-5 space-y-3">
-                {[
-                  [
-                    "01",
-                    "Curate & understand",
-                    "Popular Arabian fragrances দিয়ে শুরু করে customer preference, climate এবং budget অনুযায়ী কোন scent ভালো কাজ করে তা বোঝা।",
-                  ],
-                  [
-                    "02",
-                    "Connect closer to the source",
-                    "ভবিষ্যতে Saudi Arabia ও Middle Eastern supplier network-এর সঙ্গে সরাসরি কাজ করে আরও thoughtful selection তৈরি করা।",
-                  ],
-                  [
-                    "03",
-                    "Build a complete scent destination",
-                    "Online discovery থেকে offline experience পর্যন্ত—consultation, gifting এবং personal fragrance matching সহজ করা।",
-                  ],
-                ].map(([number, title, copy]) => (
-                  <article
-                    key={number}
-                    className="grid gap-4 rounded-[20px] border border-white/10 bg-black/30 p-5 transition hover:border-gold/40 sm:grid-cols-[48px_1fr]"
-                  >
-                    <span className="grid h-11 w-11 place-items-center rounded-full border border-gold/35 text-[10px] text-gold">
-                      {number}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-xl text-stone-200">
-                        {title}
-                      </h3>
-                      <p className="mt-2 text-xs leading-6 text-stone-500">
-                        {copy}
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <blockquote className="mt-10 border-l-2 border-gold px-6 py-2">
-              <p className="font-display text-2xl leading-9 text-stone-200">
-                “আমাদের লক্ষ্য শুধু perfume বিক্রি করা নয়—সঠিক fragrance-এর
-                মাধ্যমে মানুষকে নিজের presence আরও confidently প্রকাশ করতে
-                সাহায্য করা।”
-              </p>
-              <footer className="mt-4 text-[10px] uppercase tracking-[.2em] text-gold">
-                The Aurora Essence vision
-              </footer>
-            </blockquote>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#collection"
-                className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-6 py-3 text-[10px] font-semibold uppercase tracking-[.16em] text-black"
-              >
-                Explore collection
-              </a>
-              <a
-                href="https://m.me/auroraessenceofficial"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-gold/45 px-6 py-3 text-[10px] uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black"
-              >
-                Talk to Aurora
-              </a>
-            </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#collection"
+              className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-6 py-3 text-[10px] font-semibold uppercase tracking-[.16em] text-black"
+            >
+              Explore collection
+            </a>
+            <a
+              href="https://m.me/auroraessenceofficial"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-gold/45 px-6 py-3 text-[10px] uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black"
+            >
+              Talk to Aurora
+            </a>
           </div>
         </div>
       </section>
