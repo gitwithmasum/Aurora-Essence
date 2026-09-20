@@ -1084,7 +1084,7 @@ export default function App() {
             onClick={() => setCartOpen(false)}
             aria-label="Close cart"
           />
-          <aside className="absolute inset-y-0 right-0 flex w-full max-w-lg flex-col overflow-hidden border-l border-gold/45 bg-[radial-gradient(circle_at_15%_0%,rgba(42,220,161,.14),transparent_34%),radial-gradient(circle_at_90%_12%,rgba(157,75,207,.18),transparent_40%),rgba(6,6,5,.98)] shadow-[-30px_0_100px_rgba(0,0,0,.72)]">
+          <aside className="absolute inset-y-0 right-0 flex w-full max-w-lg flex-col overflow-hidden border-l border-gold/55 bg-[radial-gradient(circle_at_15%_0%,#0b211b_0%,#090b08_30%,transparent_48%),radial-gradient(circle_at_92%_10%,#201027_0%,#0a080c_32%,transparent_50%),#070706] shadow-[-30px_0_100px_rgba(0,0,0,.82)]">
             <div className="h-1 bg-gradient-to-r from-emerald-400 via-gold to-purple-500" />
             <div className="flex items-center justify-between border-b border-gold/20 px-6 py-6 sm:px-8">
               <div>
@@ -1189,7 +1189,7 @@ export default function App() {
             </div>
 
             {cartItems.length > 0 && (
-              <div className="border-t border-gold/20 bg-black/55 px-6 py-6 backdrop-blur-xl sm:px-8">
+              <div className="border-t border-gold/20 bg-[#080806] px-6 py-6 sm:px-8">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] uppercase tracking-[.18em] text-stone-500">
