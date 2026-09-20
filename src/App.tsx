@@ -241,7 +241,7 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#f4eddf]">
-      <header className="absolute inset-x-0 top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-md">
+      <header className="absolute inset-x-0 top-0 z-50 border-b border-gold/50 bg-[radial-gradient(circle_at_18%_0%,rgba(30,190,139,.18),transparent_35%),radial-gradient(circle_at_82%_0%,rgba(132,69,176,.20),transparent_38%),rgba(3,3,3,.84)] shadow-[0_1px_22px_rgba(213,173,85,.12)] backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-5 lg:px-10">
           <a
             href="#home"
