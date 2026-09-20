@@ -87,6 +87,42 @@ const storySlides = [
   },
 ];
 
+const finderQuestions = [
+  {
+    key: "wearer",
+    title: "Who will wear it?",
+    options: ["Men", "Women", "Unisex"],
+  },
+  {
+    key: "scent",
+    title: "Which scent family feels like you?",
+    options: ["Sweet", "Fresh", "Woody", "Spicy", "Musky"],
+  },
+  {
+    key: "occasion",
+    title: "Where will you wear it most?",
+    options: ["Daily", "Office", "Date", "Party", "Gift"],
+  },
+  {
+    key: "time",
+    title: "When do you usually wear fragrance?",
+    options: ["Day", "Night", "Anytime"],
+  },
+  {
+    key: "budget",
+    title: "What is your preferred budget?",
+    options: ["Under ৳1,000", "৳1,000–2,000", "৳2,000–3,000"],
+  },
+] as const;
+
+const scentMatches: Record<string, string[]> = {
+  Sweet: ["Khamrah", "Yara", "9PM", "Choco Musk"],
+  Fresh: ["Club de Nuit Intense", "Soft Oil", "Musk Tahara", "Yara"],
+  Woody: ["Asad", "Tobacco Touch", "Club de Nuit Intense", "9PM"],
+  Spicy: ["Khamrah Qahwa", "Asad", "Khamrah", "Tobacco Touch"],
+  Musky: ["Musk Tahara", "Choco Musk", "Soft Oil", "Yara"],
+};
+
 const products: Product[] = [
   {
     brand: "LATTAFA",
@@ -465,7 +501,22 @@ export default function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
   const [storySlide, setStorySlide] = useState(0);
+  const [finderStep, setFinderStep] = useState(0);
+  const [finderAnswers, setFinderAnswers] = useState<Record<string, string>>(
+    {},
+  );
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const finderMatches = (scentMatches[finderAnswers.scent] || [])
+    .map((name) => products.find((product) => product.name === name))
+    .filter((product): product is Product => Boolean(product))
+    .filter((product) => {
+      if (finderAnswers.wearer === "Men")
+        return ["mens", "unisex", "attar"].includes(product.category);
+      if (finderAnswers.wearer === "Women")
+        return ["womens", "unisex", "attar"].includes(product.category);
+      return product.category === "unisex" || product.category === "attar";
+    })
+    .slice(0, 3);
   useEffect(() => {
     const timer = window.setInterval(
       () => setStorySlide((slide) => (slide + 1) % storySlides.length),
@@ -523,6 +574,14 @@ export default function App() {
   const orderSummary = cartItems
     .map((item) => `${item.product.name} × ${item.quantity}`)
     .join(", ");
+  const selectFinderAnswer = (key: string, value: string) => {
+    setFinderAnswers((answers) => ({ ...answers, [key]: value }));
+    setFinderStep((step) => Math.min(step + 1, finderQuestions.length));
+  };
+  const resetFinder = () => {
+    setFinderAnswers({});
+    setFinderStep(0);
+  };
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#f4eddf]">
@@ -832,29 +891,143 @@ export default function App() {
 
       <section
         id="finder"
-        className="mx-auto my-10 max-w-[1500px] scroll-mt-24 rounded-[28px] border border-gold/35 bg-[linear-gradient(145deg,rgba(213,173,85,.07),rgba(5,5,5,.98)_45%)] px-6 py-24 text-center shadow-[inset_0_0_45px_rgba(213,173,85,.03),0_16px_50px_rgba(0,0,0,.35)] transition hover:border-gold/55"
+        className="mx-auto my-10 max-w-[1500px] scroll-mt-24 overflow-hidden rounded-[28px] border border-gold/35 bg-[radial-gradient(circle_at_10%_10%,rgba(42,220,161,.10),transparent_30%),radial-gradient(circle_at_90%_10%,rgba(157,75,207,.12),transparent_34%),#060605] px-6 py-20 shadow-[inset_0_0_45px_rgba(213,173,85,.03),0_16px_50px_rgba(0,0,0,.35)] transition hover:border-gold/55 lg:px-20"
       >
-        <p className="text-[11px] tracking-[.28em] text-gold">SCENT FINDER</p>
-        <h2 className="mx-auto mt-5 max-w-4xl font-display text-6xl">
-          What does your <em className="text-gold-light">aura feel like?</em>
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-stone-400">
-          আপনার পছন্দের notes, occasion, season এবং budget range আমাদের
-          জানান—আমরা উপযুক্ত fragrance shortlist করতে সাহায্য করব।
-        </p>
-        <div className="mx-auto mt-10 grid max-w-4xl gap-3 md:grid-cols-3">
-          {["Warm & Magnetic", "Bold & Mysterious", "Fresh & Limitless"].map(
-            (mood, i) => (
-              <a
-                href={`https://m.me/auroraessenceofficial?ref=scent-${i + 1}`}
-                target="_blank"
-                rel="noreferrer"
-                key={mood}
-                className="border border-gold/25 bg-black/40 p-6 font-display text-2xl hover:border-gold hover:text-gold-light"
-              >
-                {mood}
-              </a>
-            ),
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <p className="text-[11px] tracking-[.28em] text-gold">
+              SCENT FINDER
+            </p>
+            <h2 className="mx-auto mt-5 max-w-4xl font-display text-5xl sm:text-6xl">
+              Find the fragrance that feels like{" "}
+              <em className="text-gold-light">you.</em>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-stone-400">
+              পাঁচটি ছোট প্রশ্নের উত্তর দিন—আপনার preference অনুযায়ী আমরা
+              matching fragrance shortlist দেখাব।
+            </p>
+          </div>
+
+          <div className="mt-10 flex items-center gap-2">
+            {finderQuestions.map((question, index) => (
+              <div
+                key={question.key}
+                className={`h-1 flex-1 rounded-full transition ${index < finderStep ? "bg-gold" : index === finderStep ? "bg-gradient-to-r from-gold to-purple-500" : "bg-white/10"}`}
+              />
+            ))}
+          </div>
+
+          {finderStep < finderQuestions.length ? (
+            <div className="mt-8 rounded-[28px] border border-gold/25 bg-black/45 p-6 sm:p-10">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-[10px] uppercase tracking-[.2em] text-gold">
+                  Question {finderStep + 1} of {finderQuestions.length}
+                </p>
+                {finderStep > 0 && (
+                  <button
+                    onClick={() => setFinderStep((step) => step - 1)}
+                    className="text-[10px] uppercase tracking-[.15em] text-stone-500 hover:text-gold-light"
+                  >
+                    ← Back
+                  </button>
+                )}
+              </div>
+              <h3 className="mt-5 font-display text-3xl sm:text-4xl">
+                {finderQuestions[finderStep].title}
+              </h3>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {finderQuestions[finderStep].options.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() =>
+                      selectFinderAnswer(
+                        finderQuestions[finderStep].key,
+                        option,
+                      )
+                    }
+                    className={`rounded-[18px] border px-5 py-5 text-left text-sm transition hover:-translate-y-1 hover:border-gold hover:bg-gold/10 hover:text-gold-light ${finderAnswers[finderQuestions[finderStep].key] === option ? "border-gold bg-gold/10 text-gold-light" : "border-white/10 bg-white/[.025] text-stone-300"}`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="mt-8 rounded-[28px] border border-gold/35 bg-black/45 p-6 sm:p-10">
+              <div className="flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[.22em] text-gold">
+                    Your scent matches
+                  </p>
+                  <h3 className="mt-3 font-display text-4xl">
+                    A shortlist for your aura.
+                  </h3>
+                </div>
+                <button
+                  onClick={resetFinder}
+                  className="rounded-full border border-gold/35 px-5 py-2.5 text-[9px] uppercase tracking-[.16em] text-gold-light hover:bg-gold hover:text-black"
+                >
+                  Start again
+                </button>
+              </div>
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {finderMatches.map((product, index) => (
+                  <article
+                    key={product.name}
+                    className="rounded-[22px] border border-gold/25 bg-white/[.025] p-5"
+                  >
+                    <div
+                      className={`grid h-32 place-items-center rounded-[16px] bg-gradient-to-br ${product.tone}`}
+                    >
+                      <span className="font-display text-4xl text-white/80">
+                        {product.name.charAt(0)}
+                      </span>
+                    </div>
+                    <p className="mt-5 text-[9px] uppercase tracking-[.2em] text-gold">
+                      Match 0{index + 1} · {product.brand}
+                    </p>
+                    <h4 className="mt-2 font-display text-2xl">
+                      {product.name}
+                    </h4>
+                    <p className="mt-2 text-xs text-stone-500">
+                      {product.mood}
+                    </p>
+                    <div className="mt-5 grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => setSelectedProduct(product)}
+                        className="rounded-full border border-gold/35 px-3 py-3 text-[9px] uppercase tracking-[.14em] text-gold-light hover:bg-gold hover:text-black"
+                      >
+                        Quick view
+                      </button>
+                      <button
+                        onClick={() => addToCart(product)}
+                        className="rounded-full bg-gold px-3 py-3 text-[9px] font-semibold uppercase tracking-[.14em] text-black"
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <div className="mt-7 flex flex-col items-center justify-between gap-4 rounded-[20px] border border-gold/20 bg-gold/[.035] p-5 sm:flex-row">
+                <p className="text-xs leading-6 text-stone-500">
+                  Budget, current price and availability will be confirmed
+                  before ordering.
+                </p>
+                <a
+                  href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(
+                    `Scent Finder: ${Object.entries(finderAnswers)
+                      .map(([key, value]) => `${key}=${value}`)
+                      .join(", ")}`,
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="shrink-0 rounded-full border border-gold px-5 py-3 text-[9px] uppercase tracking-[.15em] text-gold-light hover:bg-gold hover:text-black"
+                >
+                  Ask for personal guidance
+                </a>
+              </div>
+            </div>
           )}
         </div>
       </section>
