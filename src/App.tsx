@@ -22,6 +22,19 @@ type Product = {
   badge?: string;
 };
 
+type Profile = {
+  top: string;
+  middle: string;
+  base: string;
+  type: string;
+  season: string;
+  time: string;
+  suitable: string;
+  longevity: string;
+  projection: string;
+  usage: string;
+};
+
 const categories = [
   { label: "Men’s Perfume", href: "#mens-perfume" },
   { label: "Women’s Perfume", href: "#womens-perfume" },
@@ -166,6 +179,165 @@ const products: Product[] = [
   },
 ];
 
+const profiles: Record<string, Profile> = {
+  Asad: {
+    top: "Black Pepper, Pineapple, Tobacco",
+    middle: "Coffee, Iris, Patchouli",
+    base: "Vanilla, Amber, Dry Woods, Benzoin",
+    type: "Men’s EDP",
+    season: "Winter and cool monsoon evenings",
+    time: "Evening and night",
+    suitable: "Office evenings, formal events and parties",
+    longevity: "Typically 7–10 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Start light in indoor or formal settings.",
+  },
+  "9PM": {
+    top: "Apple, Cinnamon, Bergamot, Lavender",
+    middle: "Orange Blossom, Lily-of-the-Valley",
+    base: "Vanilla, Tonka Bean, Amber, Patchouli",
+    type: "Men’s EDP",
+    season: "Winter and cool evenings",
+    time: "Evening and night",
+    suitable: "Party, date and special occasion",
+    longevity: "Typically 8–10 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Allow the sweet aromatic profile to develop before adding more.",
+  },
+  "Club de Nuit Intense": {
+    top: "Lemon, Pineapple, Bergamot, Black Currant, Apple",
+    middle: "Birch, Jasmine, Rose",
+    base: "Musk, Ambergris, Patchouli, Vanilla",
+    type: "Men’s EDT",
+    season: "All year; use fewer sprays in heat",
+    time: "Day and evening",
+    suitable: "Office, formal event and party",
+    longevity: "Typically 7–10 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Avoid overspraying in enclosed spaces.",
+  },
+  Yara: {
+    top: "Tangerine, Heliotrope, Orchid",
+    middle: "Tropical Fruits, Gourmand Accord",
+    base: "Vanilla, Musk, Sandalwood",
+    type: "Women’s EDP",
+    season: "All year; use fewer sprays in hot weather",
+    time: "Day and evening",
+    suitable: "Daily wear, casual outings and gifting",
+    longevity: "Typically 6–8 hours*",
+    projection: "Usually moderate",
+    usage:
+      "Apply 3–5 sprays to pulse points and clothing from a safe distance. Start light during warm days.",
+  },
+  "Fakhar Rose": {
+    top: "Fruits, Lily, Pomegranate",
+    middle: "Tuberose, Jasmine, Gardenia, Ylang-Ylang",
+    base: "Vanilla, Ambroxan, White Musk, Sandalwood",
+    type: "Women’s EDP",
+    season: "Spring, autumn and cool evenings",
+    time: "Day and evening",
+    suitable: "Celebration, dinner, party and special occasion",
+    longevity: "Typically 6–8 hours*",
+    projection: "Usually moderate to strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Use fewer sprays for daytime wear.",
+  },
+  "Modest Deux": {
+    top: "Dark Chocolate, Strawberry, Raspberry, Cherry",
+    middle: "Vanilla and Spices",
+    base: "Patchouli, Musk, Gardenia",
+    type: "Women’s EDP",
+    season: "Winter and air-conditioned settings",
+    time: "Evening and night",
+    suitable: "Date, café outing, party and special occasion",
+    longevity: "Typically 7–9 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 2–4 sprays to pulse points. Let the rich gourmand profile settle before reapplying.",
+  },
+  Khamrah: {
+    top: "Cinnamon, Nutmeg, Bergamot",
+    middle: "Dates, Praline, Tuberose",
+    base: "Vanilla, Tonka Bean, Benzoin, Myrrh, Amberwood",
+    type: "Unisex EDP",
+    season: "Winter and cool evenings",
+    time: "Evening and night",
+    suitable: "Date, festival, party and special occasion",
+    longevity: "Typically 8–12 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Start light and allow the fragrance to develop.",
+  },
+  "Khamrah Qahwa": {
+    top: "Ginger, Cinnamon, Cardamom",
+    middle: "Praline, Candied Fruits, White Florals",
+    base: "Coffee, Vanilla, Tonka Bean, Benzoin, Musk",
+    type: "Unisex EDP",
+    season: "Winter and cold evenings",
+    time: "Evening and night",
+    suitable: "Date, café outing, party and special occasion",
+    longevity: "Typically 8–12 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 3–5 sprays to the neck and pulse points. Start with fewer sprays and allow the fragrance to develop on the skin.",
+  },
+  "Tobacco Touch": {
+    top: "Tobacco Leaf, Spices",
+    middle: "Tobacco, Vanilla, Cacao, Tonka Bean",
+    base: "Dried Fruits, Woody Notes",
+    type: "Unisex EDP",
+    season: "Winter",
+    time: "Evening and night",
+    suitable: "Formal event, date and evening occasion",
+    longevity: "Typically 7–10 hours*",
+    projection: "Usually strong",
+    usage:
+      "Apply 2–4 sprays to the neck and pulse points. The tobacco profile is rich, so start light.",
+  },
+  "Soft Oil": {
+    top: "Citrus",
+    middle: "Caramel, White Florals",
+    base: "Vanilla, Musk, Woods",
+    type: "Women’s/Unisex Perfume Oil",
+    season: "All year",
+    time: "Any time",
+    suitable: "Daily wear, layering and gifting",
+    longevity: "Typically 6–10 hours*",
+    projection: "Usually close to moderate",
+    usage:
+      "Apply 1–2 small swipes to clean pulse points. Do not rub; allow the oil to settle naturally.",
+  },
+  "Choco Musk": {
+    top: "Chocolate, Vanilla",
+    middle: "Cinnamon, Rose",
+    base: "Musk, Amber, Spicy Notes",
+    type: "Unisex Perfume Oil",
+    season: "All year; apply lightly in heat",
+    time: "Any time",
+    suitable: "Casual wear, layering and gifting",
+    longevity: "Typically 6–10 hours*",
+    projection: "Usually close to moderate",
+    usage:
+      "Apply 1–2 small swipes to pulse points. A small amount is enough for layering.",
+  },
+  "Musk Tahara": {
+    top: "Clean White Musk",
+    middle: "Soft Powder, Delicate Florals",
+    base: "Creamy Musk, Subtle Woods",
+    type: "Unisex Perfume Oil",
+    season: "All year",
+    time: "Any time",
+    suitable: "Daily wear, after-shower use and layering",
+    longevity: "Typically 6–10 hours*",
+    projection: "Usually close to moderate",
+    usage:
+      "Apply a small swipe to clean pulse points. Keep application light for a soft, clean scent trail.",
+  },
+};
+
 const sections = [
   {
     id: "mens-perfume",
@@ -204,31 +376,136 @@ const sections = [
   },
 ];
 
-function ProductCard({ product, index }: { product: Product; index: number }) {
+function ProductCard({
+  product,
+  index,
+  expanded,
+  onToggle,
+  onAdd,
+}: {
+  product: Product;
+  index: number;
+  expanded: boolean;
+  onToggle: () => void;
+  onAdd: () => void;
+}) {
+  const profile = profiles[product.name];
   return (
-    <article className="group relative h-[450px] overflow-hidden border border-white/10 bg-[#0d0c0a] p-7 transition hover:border-gold/40">
-      <span className="text-[10px] text-stone-600">
-        {String(index + 1).padStart(2, "0")}
-      </span>
-      {product.badge && (
-        <span className="absolute right-5 top-5 border border-gold/30 bg-gold/10 px-2 py-1 text-[8px] tracking-[.15em] text-gold-light">
-          {product.badge}
+    <article
+      className={`group relative overflow-hidden rounded-[24px] border bg-[#0d0c0a] p-7 transition ${expanded ? "border-gold/60" : "border-white/10 hover:border-gold/40"}`}
+    >
+      <button
+        onClick={onToggle}
+        className="absolute inset-0 z-10"
+        aria-label={`View ${product.name} details`}
+      />
+      <div className="relative h-[394px]">
+        <span className="text-[10px] text-stone-600">
+          {String(index + 1).padStart(2, "0")}
         </span>
+        {product.badge && (
+          <span className="absolute right-5 top-5 border border-gold/30 bg-gold/10 px-2 py-1 text-[8px] tracking-[.15em] text-gold-light">
+            {product.badge}
+          </span>
+        )}
+        <div
+          className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
+        >
+          <div className="absolute -top-9 left-1/2 h-11 w-[72px] -translate-x-1/2 rounded-t-md bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
+          <span className="grid h-full place-items-center px-3 text-center font-display text-xl tracking-wider text-gold-light">
+            {product.name.toUpperCase()}
+          </span>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0">
+          <p className="text-[9px] tracking-[.22em] text-gold">
+            {product.brand}
+          </p>
+          <h3 className="font-display text-3xl">{product.name}</h3>
+          <p className="mt-1 text-xs text-stone-400">{product.mood}</p>
+          <p className="mt-2 text-[11px] text-stone-600">{product.notes}</p>
+        </div>
+      </div>
+      {expanded && (
+        <div className="relative z-20 border-t border-gold/25 pt-7">
+          <p className="mb-5 text-[10px] font-semibold uppercase tracking-[.22em] text-gold">
+            Fragrance Profile
+          </p>
+          {profile ? (
+            <div className="space-y-3 text-xs leading-6 text-stone-300">
+              <p>
+                <strong className="text-gold-light">Top notes:</strong>{" "}
+                {profile.top}
+              </p>
+              <p>
+                <strong className="text-gold-light">Middle notes:</strong>{" "}
+                {profile.middle}
+              </p>
+              <p>
+                <strong className="text-gold-light">Base notes:</strong>{" "}
+                {profile.base}
+              </p>
+              <p>
+                <strong className="text-gold-light">Type:</strong>{" "}
+                {profile.type}
+              </p>
+              <p>
+                <strong className="text-gold-light">Best season:</strong>{" "}
+                {profile.season}
+              </p>
+              <p>
+                <strong className="text-gold-light">Best time:</strong>{" "}
+                {profile.time}
+              </p>
+              <p>
+                <strong className="text-gold-light">Suitable for:</strong>{" "}
+                {profile.suitable}
+              </p>
+              <p>
+                <strong className="text-gold-light">Typical longevity:</strong>{" "}
+                {profile.longevity}
+              </p>
+              <p>
+                <strong className="text-gold-light">Projection:</strong>{" "}
+                {profile.projection}
+              </p>
+              <div className="mt-5 rounded-[18px] border border-gold/25 bg-gold/5 p-4">
+                <strong className="text-gold-light">How to use:</strong>{" "}
+                {profile.usage}
+              </div>
+              <p className="text-[10px] leading-5 text-stone-600">
+                *Longevity and projection may vary by skin, weather, batch and
+                application.
+              </p>
+            </div>
+          ) : (
+            <div className="rounded-[18px] border border-gold/25 bg-gold/5 p-4 text-xs leading-6 text-stone-300">
+              <strong className="text-gold-light">Curated gift set:</strong>{" "}
+              {product.notes}. Contact Aurora Essence to select the fragrances
+              and presentation for this set.
+            </div>
+          )}
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                onAdd();
+              }}
+              className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-[10px] font-semibold uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black"
+            >
+              Add to Cart
+            </button>
+            <a
+              onClick={(event) => event.stopPropagation()}
+              href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(product.name)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-5 py-3 text-center text-[10px] font-semibold uppercase tracking-[.15em] text-black"
+            >
+              Order Now
+            </a>
+          </div>
+        </div>
       )}
-      <div
-        className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
-      >
-        <div className="absolute -top-9 left-1/2 h-11 w-[72px] -translate-x-1/2 rounded-t-md bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
-        <span className="grid h-full place-items-center px-3 text-center font-display text-xl tracking-wider text-gold-light">
-          {product.name.toUpperCase()}
-        </span>
-      </div>
-      <div className="absolute bottom-7 left-7 right-7">
-        <p className="text-[9px] tracking-[.22em] text-gold">{product.brand}</p>
-        <h3 className="font-display text-3xl">{product.name}</h3>
-        <p className="mt-1 text-xs text-stone-400">{product.mood}</p>
-        <p className="mt-2 text-[11px] text-stone-600">{product.notes}</p>
-      </div>
     </article>
   );
 }
@@ -236,6 +513,8 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
+  const [cartCount, setCartCount] = useState(0);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
@@ -366,7 +645,7 @@ export default function App() {
               >
                 <ShoppingBag size={17} strokeWidth={1.7} />
                 <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full border border-black bg-gold px-1 text-[8px] font-bold text-black">
-                  0
+                  {cartCount}
                 </span>
               </a>
               <a
@@ -465,7 +744,16 @@ export default function App() {
               (p) => p.badge === "NEW" || p.name === "Yara" || p.name === "9PM",
             )
             .map((p, i) => (
-              <ProductCard key={p.name} product={p} index={i} />
+              <ProductCard
+                key={p.name}
+                product={p}
+                index={i}
+                expanded={expandedProduct === p.name}
+                onToggle={() =>
+                  setExpandedProduct(expandedProduct === p.name ? null : p.name)
+                }
+                onAdd={() => setCartCount((count) => count + 1)}
+              />
             ))}
         </div>
       </section>
@@ -486,7 +774,18 @@ export default function App() {
               .filter((p) => p.badge === "BESTSELLER" || p.badge === "POPULAR")
               .slice(0, 3)
               .map((p, i) => (
-                <ProductCard key={p.name} product={p} index={i} />
+                <ProductCard
+                  key={p.name}
+                  product={p}
+                  index={i}
+                  expanded={expandedProduct === p.name}
+                  onToggle={() =>
+                    setExpandedProduct(
+                      expandedProduct === p.name ? null : p.name,
+                    )
+                  }
+                  onAdd={() => setCartCount((count) => count + 1)}
+                />
               ))}
           </div>
         </div>
@@ -516,7 +815,18 @@ export default function App() {
               {products
                 .filter((p) => p.category === section.category)
                 .map((p, i) => (
-                  <ProductCard key={p.name} product={p} index={i} />
+                  <ProductCard
+                    key={p.name}
+                    product={p}
+                    index={i}
+                    expanded={expandedProduct === p.name}
+                    onToggle={() =>
+                      setExpandedProduct(
+                        expandedProduct === p.name ? null : p.name,
+                      )
+                    }
+                    onAdd={() => setCartCount((count) => count + 1)}
+                  />
                 ))}
             </div>
             <a
