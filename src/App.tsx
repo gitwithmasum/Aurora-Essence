@@ -6,8 +6,11 @@ import {
   Gift,
   Menu,
   MessageCircle,
+  Minus,
+  Plus,
   ShoppingBag,
   Sparkles,
+  Trash2,
   UserRound,
   X,
 } from "lucide-react";
@@ -21,6 +24,11 @@ type Product = {
   category: string;
   tone: string;
   badge?: string;
+};
+
+type CartItem = {
+  product: Product;
+  quantity: number;
 };
 
 type Profile = {
@@ -426,8 +434,10 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const closeMenus = () => {
     setShopOpen(false);
     setMobileOpen(false);
@@ -445,7 +455,16 @@ export default function App() {
     );
   };
   const addToCart = (product: Product) => {
-    setCartCount((count) => count + 1);
+    setCartItems((items) => {
+      const existing = items.find((item) => item.product.name === product.name);
+      return existing
+        ? items.map((item) =>
+            item.product.name === product.name
+              ? { ...item, quantity: item.quantity + 1 }
+              : item,
+          )
+        : [...items, { product, quantity: 1 }];
+    });
     setAddedProduct(product);
     window.setTimeout(
       () =>
@@ -455,6 +474,20 @@ export default function App() {
       3500,
     );
   };
+  const changeQuantity = (productName: string, amount: number) => {
+    setCartItems((items) =>
+      items
+        .map((item) =>
+          item.product.name === productName
+            ? { ...item, quantity: Math.max(0, item.quantity + amount) }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
+  };
+  const orderSummary = cartItems
+    .map((item) => `${item.product.name} × ${item.quantity}`)
+    .join(", ");
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#f4eddf]">
@@ -573,8 +606,11 @@ export default function App() {
               >
                 <UserRound size={17} strokeWidth={1.7} />
               </a>
-              <a
-                href="#collection"
+              <button
+                onClick={() => {
+                  setCartOpen(true);
+                  closeMenus();
+                }}
                 aria-label="View product cart"
                 title="Cart"
                 className="relative grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
@@ -583,7 +619,7 @@ export default function App() {
                 <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full border border-black bg-gold px-1 text-[8px] font-bold text-black">
                   {cartCount}
                 </span>
-              </a>
+              </button>
               <a
                 href="#order-assistance"
                 className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-center text-xs uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
@@ -1023,17 +1059,167 @@ export default function App() {
             >
               Continue Shopping
             </button>
-            <a
-              href="#collection"
+            <button
               onClick={() => {
                 setAddedProduct(null);
                 setSelectedProduct(null);
+                setCartOpen(true);
               }}
               className="border-l border-gold/15 bg-gold/5 px-4 py-3 text-center text-[9px] uppercase tracking-[.16em] text-gold-light hover:bg-gold hover:text-black"
             >
               View Cart
-            </a>
+            </button>
           </div>
+        </div>
+      )}
+      {cartOpen && (
+        <div
+          className="fixed inset-0 z-[130]"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Shopping cart"
+        >
+          <button
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={() => setCartOpen(false)}
+            aria-label="Close cart"
+          />
+          <aside className="absolute inset-y-0 right-0 flex w-full max-w-lg flex-col overflow-hidden border-l border-gold/45 bg-[radial-gradient(circle_at_15%_0%,rgba(42,220,161,.14),transparent_34%),radial-gradient(circle_at_90%_12%,rgba(157,75,207,.18),transparent_40%),rgba(6,6,5,.98)] shadow-[-30px_0_100px_rgba(0,0,0,.72)]">
+            <div className="h-1 bg-gradient-to-r from-emerald-400 via-gold to-purple-500" />
+            <div className="flex items-center justify-between border-b border-gold/20 px-6 py-6 sm:px-8">
+              <div>
+                <p className="text-[10px] uppercase tracking-[.24em] text-gold">
+                  Your selection
+                </p>
+                <h2 className="mt-2 font-display text-4xl">The Aura Cart</h2>
+              </div>
+              <button
+                onClick={() => setCartOpen(false)}
+                className="grid h-11 w-11 place-items-center rounded-full border border-gold/35 text-stone-300 transition hover:border-gold hover:bg-gold hover:text-black"
+                aria-label="Close cart"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 py-6 sm:px-8">
+              {cartItems.length === 0 ? (
+                <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+                  <div className="grid h-20 w-20 place-items-center rounded-full border border-gold/35 bg-gold/5 text-gold-light shadow-[0_0_45px_rgba(213,173,85,.12)]">
+                    <ShoppingBag size={30} strokeWidth={1.3} />
+                  </div>
+                  <h3 className="mt-7 font-display text-3xl">
+                    Your cart is waiting
+                  </h3>
+                  <p className="mt-3 max-w-xs text-sm leading-6 text-stone-500">
+                    Explore the collection and add a fragrance that matches your
+                    aura.
+                  </p>
+                  <button
+                    onClick={() => setCartOpen(false)}
+                    className="mt-7 rounded-full border border-gold px-6 py-3 text-[10px] uppercase tracking-[.18em] text-gold-light transition hover:bg-gold hover:text-black"
+                  >
+                    Continue shopping
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {cartItems.map(({ product, quantity }) => (
+                    <article
+                      key={product.name}
+                      className="group relative overflow-hidden rounded-[24px] border border-gold/25 bg-white/[.025] p-4 transition hover:border-gold/50"
+                    >
+                      <div
+                        className={`absolute inset-y-0 left-0 w-1 bg-gradient-to-b ${product.tone}`}
+                      />
+                      <div className="flex gap-4">
+                        <div
+                          className={`grid h-20 w-20 shrink-0 place-items-center rounded-[18px] border border-white/10 bg-gradient-to-br ${product.tone}`}
+                        >
+                          <span className="font-display text-2xl text-white/80">
+                            {product.name.charAt(0)}
+                          </span>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[9px] uppercase tracking-[.2em] text-gold">
+                            {product.brand}
+                          </p>
+                          <h3 className="mt-1 truncate font-display text-2xl">
+                            {product.name}
+                          </h3>
+                          <p className="mt-1 truncate text-xs text-stone-500">
+                            {product.mood}
+                          </p>
+                          <div className="mt-4 flex items-center justify-between gap-3">
+                            <div className="flex items-center rounded-full border border-gold/30 bg-black/35 p-1">
+                              <button
+                                onClick={() => changeQuantity(product.name, -1)}
+                                className="grid h-8 w-8 place-items-center rounded-full text-stone-400 transition hover:bg-gold hover:text-black"
+                                aria-label={`Decrease ${product.name} quantity`}
+                              >
+                                <Minus size={13} />
+                              </button>
+                              <span className="w-8 text-center text-sm text-gold-light">
+                                {quantity}
+                              </span>
+                              <button
+                                onClick={() => changeQuantity(product.name, 1)}
+                                className="grid h-8 w-8 place-items-center rounded-full text-stone-400 transition hover:bg-gold hover:text-black"
+                                aria-label={`Increase ${product.name} quantity`}
+                              >
+                                <Plus size={13} />
+                              </button>
+                            </div>
+                            <button
+                              onClick={() =>
+                                changeQuantity(product.name, -quantity)
+                              }
+                              className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-stone-500 transition hover:border-red-400/40 hover:text-red-300"
+                              aria-label={`Remove ${product.name} from cart`}
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {cartItems.length > 0 && (
+              <div className="border-t border-gold/20 bg-black/55 px-6 py-6 backdrop-blur-xl sm:px-8">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[.18em] text-stone-500">
+                      Total items
+                    </p>
+                    <p className="mt-1 font-display text-3xl text-gold-light">
+                      {cartCount}
+                    </p>
+                  </div>
+                  <p className="max-w-[190px] text-right text-xs leading-5 text-stone-500">
+                    Price and availability will be confirmed before your order.
+                  </p>
+                </div>
+                <a
+                  href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(`Cart order: ${orderSummary}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-gold-dark via-gold to-gold-light px-6 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black shadow-[0_0_30px_rgba(213,173,85,.18)] transition hover:brightness-110"
+                >
+                  <MessageCircle size={17} /> Confirm order in inbox
+                </a>
+                <button
+                  onClick={() => setCartOpen(false)}
+                  className="mt-3 w-full py-2 text-[10px] uppercase tracking-[.16em] text-stone-500 hover:text-gold-light"
+                >
+                  Continue shopping
+                </button>
+              </div>
+            )}
+          </aside>
         </div>
       )}
       <footer className="border-t border-white/10 px-6 py-10 text-center text-xs text-stone-600">
