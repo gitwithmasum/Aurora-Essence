@@ -5,7 +5,9 @@ import {
   Gift,
   Menu,
   MessageCircle,
+  ShoppingBag,
   Sparkles,
+  UserRound,
   X,
 } from "lucide-react";
 import TriangleLedFront from "@/components/ui/triangle-led-front";
@@ -345,12 +347,35 @@ export default function App() {
             >
               Scent Finder
             </a>
-            <a
-              href="#order-assistance"
-              className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-center text-xs uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
-            >
-              Order Now
-            </a>
+            <div className="flex items-center gap-2 py-2 lg:py-0">
+              <a
+                href="https://www.facebook.com/auroraessenceofficial/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Aurora Essence profile"
+                title="Profile"
+                className="grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+              >
+                <UserRound size={17} strokeWidth={1.7} />
+              </a>
+              <a
+                href="#collection"
+                aria-label="View product cart"
+                title="Cart"
+                className="relative grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+              >
+                <ShoppingBag size={17} strokeWidth={1.7} />
+                <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full border border-black bg-gold px-1 text-[8px] font-bold text-black">
+                  0
+                </span>
+              </a>
+              <a
+                href="#order-assistance"
+                className="rounded-full border border-gold bg-gold/5 px-5 py-3 text-center text-xs uppercase tracking-[.15em] text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+              >
+                Order Now
+              </a>
+            </div>
           </nav>
         </div>
       </header>
