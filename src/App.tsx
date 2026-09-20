@@ -241,8 +241,8 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#f4eddf]">
-      <header className="absolute inset-x-0 top-0 z-50 border-b border-gold/50 bg-[radial-gradient(circle_at_18%_0%,rgba(30,190,139,.18),transparent_35%),radial-gradient(circle_at_82%_0%,rgba(132,69,176,.20),transparent_38%),rgba(3,3,3,.84)] shadow-[0_1px_22px_rgba(213,173,85,.12)] backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-5 lg:px-10">
+      <header className="absolute inset-x-0 top-0 z-50 pt-3">
+        <div className="mx-auto flex h-16 w-[calc(100%-1.5rem)] max-w-[1500px] items-center justify-between rounded-full border border-gold/60 bg-[radial-gradient(circle_at_12%_0%,rgba(42,220,161,.30),transparent_34%),radial-gradient(circle_at_84%_10%,rgba(157,75,207,.32),transparent_38%),linear-gradient(100deg,rgba(5,12,10,.94),rgba(17,7,21,.94))] px-5 shadow-[0_0_28px_rgba(213,173,85,.18),inset_0_0_25px_rgba(255,255,255,.025)] backdrop-blur-xl lg:px-10">
           <a
             href="#home"
             className="flex items-center gap-3 font-display text-lg tracking-[.16em]"
@@ -262,7 +262,7 @@ export default function App() {
             {mobileOpen ? <X /> : <Menu />}
           </button>
           <nav
-            className={`${mobileOpen ? "flex" : "hidden"} absolute left-0 right-0 top-20 flex-col gap-1 border-b border-gold/20 bg-black p-5 lg:static lg:flex lg:flex-row lg:items-center lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0`}
+            className={`${mobileOpen ? "flex" : "hidden"} absolute left-3 right-3 top-20 flex-col gap-1 rounded-[24px] border border-gold/45 bg-[radial-gradient(circle_at_15%_0%,rgba(42,220,161,.22),transparent_38%),radial-gradient(circle_at_85%_10%,rgba(157,75,207,.25),transparent_42%),rgba(4,4,4,.97)] p-5 shadow-2xl backdrop-blur-xl lg:static lg:flex lg:flex-row lg:items-center lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}
           >
             <div className="group relative">
               <button
