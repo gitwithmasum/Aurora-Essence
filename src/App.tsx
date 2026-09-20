@@ -4,10 +4,13 @@ import {
   CheckCircle2,
   ChevronRight,
   Gift,
+  Heart,
   Menu,
   MessageCircle,
   Minus,
   Plus,
+  Scale,
+  Search,
   ShoppingBag,
   Sparkles,
   Trash2,
@@ -477,7 +480,44 @@ export default function App() {
   const [finderAnswers, setFinderAnswers] = useState<Record<string, string>>(
     {},
   );
+  const [collectionSearch, setCollectionSearch] = useState("");
+  const [collectionCategory, setCollectionCategory] = useState("all");
+  const [collectionSort, setCollectionSort] = useState("featured");
+  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [compareList, setCompareList] = useState<string[]>([]);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const collectionProducts = products
+    .filter((product) => {
+      const query = collectionSearch.trim().toLowerCase();
+      const matchesSearch =
+        !query ||
+        [product.name, product.brand, product.mood, product.notes].some(
+          (value) => value.toLowerCase().includes(query),
+        );
+      return (
+        matchesSearch &&
+        (collectionCategory === "all" ||
+          product.category === collectionCategory)
+      );
+    })
+    .sort((a, b) => {
+      if (collectionSort === "name") return a.name.localeCompare(b.name);
+      if (collectionSort === "new")
+        return Number(b.badge === "NEW") - Number(a.badge === "NEW");
+      if (collectionSort === "popular") {
+        const rank = (product: Product) =>
+          product.badge === "BESTSELLER"
+            ? 2
+            : product.badge === "POPULAR"
+              ? 1
+              : 0;
+        return rank(b) - rank(a);
+      }
+      return products.indexOf(a) - products.indexOf(b);
+    });
+  const comparedProducts = compareList
+    .map((name) => products.find((product) => product.name === name))
+    .filter((product): product is Product => Boolean(product));
   const finderMatches = (scentMatches[finderAnswers.scent] || [])
     .map((name) => products.find((product) => product.name === name))
     .filter((product): product is Product => Boolean(product))
@@ -546,6 +586,20 @@ export default function App() {
   const resetFinder = () => {
     setFinderAnswers({});
     setFinderStep(0);
+  };
+  const toggleWishlist = (productName: string) => {
+    setWishlist((items) =>
+      items.includes(productName)
+        ? items.filter((name) => name !== productName)
+        : [...items, productName],
+    );
+  };
+  const toggleCompare = (productName: string) => {
+    setCompareList((items) => {
+      if (items.includes(productName))
+        return items.filter((name) => name !== productName);
+      return items.length < 3 ? [...items, productName] : items;
+    });
   };
 
   return (
@@ -753,6 +807,225 @@ export default function App() {
               />
             </a>
           ))}
+        </div>
+
+        <div className="mt-16 border-t border-gold/20 pt-10">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+            <label className="relative block">
+              <Search
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gold"
+                size={18}
+              />
+              <input
+                value={collectionSearch}
+                onChange={(event) => setCollectionSearch(event.target.value)}
+                placeholder="Search perfume, brand or fragrance note..."
+                className="h-14 w-full rounded-full border border-gold/30 bg-black/45 pl-14 pr-5 text-sm text-stone-200 outline-none transition placeholder:text-stone-600 focus:border-gold"
+              />
+            </label>
+            <div className="flex flex-wrap items-center gap-3">
+              <select
+                value={collectionSort}
+                onChange={(event) => setCollectionSort(event.target.value)}
+                aria-label="Sort collection"
+                className="h-12 rounded-full border border-gold/30 bg-[#0b0a08] px-5 text-xs text-gold-light outline-none"
+              >
+                <option value="featured">Featured</option>
+                <option value="popular">Most Popular</option>
+                <option value="new">New Arrivals</option>
+                <option value="name">Name A–Z</option>
+              </select>
+              <span className="inline-flex h-12 items-center gap-2 rounded-full border border-gold/25 px-4 text-xs text-stone-400">
+                <Heart size={15} className="text-gold" /> {wishlist.length}{" "}
+                saved
+              </span>
+              <span className="inline-flex h-12 items-center gap-2 rounded-full border border-gold/25 px-4 text-xs text-stone-400">
+                <Scale size={15} className="text-gold" /> {compareList.length}/3
+                compare
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {[
+              ["all", "All"],
+              ["mens", "Men"],
+              ["womens", "Women"],
+              ["unisex", "Unisex"],
+              ["attar", "Attar & Oil"],
+              ["gifts", "Gift Sets"],
+            ].map(([value, label]) => (
+              <button
+                key={value}
+                onClick={() => setCollectionCategory(value)}
+                className={`rounded-full border px-4 py-2.5 text-[10px] uppercase tracking-[.15em] transition ${collectionCategory === value ? "border-gold bg-gold text-black" : "border-white/10 text-stone-400 hover:border-gold/45 hover:text-gold-light"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-9 flex items-center justify-between">
+            <p className="text-xs text-stone-500">
+              {collectionProducts.length} fragrances found
+            </p>
+            {compareList.length === 3 && (
+              <p className="text-[10px] text-gold">
+                Compare limit reached—remove one to add another.
+              </p>
+            )}
+          </div>
+
+          {collectionProducts.length ? (
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {collectionProducts.map((product) => {
+                const liked = wishlist.includes(product.name);
+                const comparing = compareList.includes(product.name);
+                return (
+                  <article
+                    key={product.name}
+                    className="group overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0a08] transition hover:-translate-y-1 hover:border-gold/45"
+                  >
+                    <div
+                      className={`relative grid h-48 place-items-center bg-gradient-to-br ${product.tone}`}
+                    >
+                      {product.badge && (
+                        <span className="absolute left-4 top-4 rounded-full border border-gold/45 bg-black/65 px-3 py-1.5 text-[8px] tracking-[.16em] text-gold">
+                          {product.badge}
+                        </span>
+                      )}
+                      <button
+                        onClick={() => toggleWishlist(product.name)}
+                        className={`absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border transition ${liked ? "border-gold bg-gold text-black" : "border-white/20 bg-black/55 text-white hover:border-gold hover:text-gold"}`}
+                        aria-label={`${liked ? "Remove" : "Add"} ${product.name} ${liked ? "from" : "to"} wishlist`}
+                      >
+                        <Heart
+                          size={16}
+                          fill={liked ? "currentColor" : "none"}
+                        />
+                      </button>
+                      <span className="font-display text-6xl text-white/70">
+                        {product.name.charAt(0)}
+                      </span>
+                    </div>
+                    <div className="p-5">
+                      <p className="text-[9px] uppercase tracking-[.2em] text-gold">
+                        {product.brand}
+                      </p>
+                      <h3 className="mt-2 font-display text-2xl">
+                        {product.name}
+                      </h3>
+                      <p className="mt-2 text-xs text-stone-500">
+                        {product.mood}
+                      </p>
+                      <p className="mt-2 min-h-10 text-[11px] leading-5 text-stone-600">
+                        {product.notes}
+                      </p>
+                      <div className="mt-5 grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setSelectedProduct(product)}
+                          className="rounded-full border border-gold/35 px-3 py-3 text-[9px] uppercase tracking-[.14em] text-gold-light hover:bg-gold hover:text-black"
+                        >
+                          Quick view
+                        </button>
+                        <button
+                          onClick={() => toggleCompare(product.name)}
+                          disabled={!comparing && compareList.length >= 3}
+                          className={`rounded-full border px-3 py-3 text-[9px] uppercase tracking-[.14em] transition disabled:cursor-not-allowed disabled:opacity-35 ${comparing ? "border-gold bg-gold text-black" : "border-white/15 text-stone-400 hover:border-gold hover:text-gold-light"}`}
+                        >
+                          {comparing ? "Selected" : "Compare"}
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="mt-6 rounded-[24px] border border-dashed border-gold/25 py-16 text-center">
+              <Search className="mx-auto text-gold" />
+              <p className="mt-4 font-display text-2xl">No fragrance found</p>
+              <button
+                onClick={() => {
+                  setCollectionSearch("");
+                  setCollectionCategory("all");
+                }}
+                className="mt-4 text-[10px] uppercase tracking-[.16em] text-gold"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+
+          {comparedProducts.length > 0 && (
+            <div className="mt-12 overflow-hidden rounded-[26px] border border-gold/35 bg-black/45">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gold/20 p-6">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[.2em] text-gold">
+                    Fragrance comparison
+                  </p>
+                  <h3 className="mt-2 font-display text-3xl">
+                    Compare your shortlist
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setCompareList([])}
+                  className="rounded-full border border-gold/30 px-4 py-2 text-[9px] uppercase tracking-[.14em] text-stone-400 hover:text-gold-light"
+                >
+                  Clear all
+                </button>
+              </div>
+              <div className="grid divide-y divide-gold/15 md:grid-cols-3 md:divide-x md:divide-y-0">
+                {comparedProducts.map((product) => {
+                  const profile = profiles[product.name];
+                  return (
+                    <article key={product.name} className="p-6">
+                      <p className="text-[9px] uppercase tracking-[.2em] text-gold">
+                        {product.brand}
+                      </p>
+                      <h4 className="mt-2 font-display text-3xl">
+                        {product.name}
+                      </h4>
+                      <div className="mt-6 space-y-4 text-xs leading-6">
+                        {[
+                          ["Notes", product.notes],
+                          ["Type", profile?.type || "Curated gift set"],
+                          [
+                            "Longevity",
+                            profile?.longevity || "Varies by selection",
+                          ],
+                          [
+                            "Projection",
+                            profile?.projection || "Varies by selection",
+                          ],
+                          ["Best for", profile?.suitable || product.mood],
+                        ].map(([label, value]) => (
+                          <div
+                            key={label}
+                            className="border-b border-white/10 pb-3"
+                          >
+                            <p className="text-[9px] uppercase tracking-[.14em] text-stone-600">
+                              {label}
+                            </p>
+                            <p className="mt-1 text-stone-300">{value}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => addToCart(product)}
+                        className="mt-6 w-full rounded-full bg-gold px-4 py-3 text-[9px] font-semibold uppercase tracking-[.14em] text-black"
+                      >
+                        Add to cart
+                      </button>
+                    </article>
+                  );
+                })}
+              </div>
+              <p className="border-t border-gold/15 p-4 text-center text-[10px] text-stone-600">
+                Performance varies by skin, weather, batch and application.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
