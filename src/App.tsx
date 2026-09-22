@@ -624,7 +624,12 @@ export default function App() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#f4eddf]">
+    <main className="relative isolate min-h-screen bg-transparent text-[#f4eddf]">
+      <div aria-hidden="true" className="site-aurora-backdrop pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="site-aurora-light site-aurora-light-gold" />
+        <div className="site-aurora-light site-aurora-light-violet" />
+        <div className="site-aurora-light site-aurora-light-teal" />
+      </div>
       <header className="fixed inset-x-0 top-0 z-50 pt-3">
         <div className="mx-auto flex h-16 w-[calc(100%-1.5rem)] max-w-[1500px] items-center justify-between rounded-full border border-gold/60 bg-[radial-gradient(circle_at_12%_0%,rgba(42,220,161,.30),transparent_34%),radial-gradient(circle_at_84%_10%,rgba(157,75,207,.32),transparent_38%),linear-gradient(100deg,rgba(5,12,10,.94),rgba(17,7,21,.94))] px-5 shadow-[0_0_28px_rgba(213,173,85,.18),inset_0_0_25px_rgba(255,255,255,.025)] backdrop-blur-xl lg:px-10">
           <a
