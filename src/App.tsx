@@ -629,6 +629,25 @@ export default function App() {
         <div className="site-aurora-light site-aurora-light-gold" />
         <div className="site-aurora-light site-aurora-light-violet" />
         <div className="site-aurora-light site-aurora-light-teal" />
+        <div className="galaxy-particles absolute inset-0">
+          {Array.from({ length: 64 }, (_, index) => {
+            const size = index % 11 === 0 ? 3 : index % 3 === 0 ? 2 : 1;
+            return (
+              <span
+                key={index}
+                className="galaxy-particle"
+                style={{
+                  left: `${(index * 73.37 + 17) % 100}%`,
+                  top: `${(index * 41.83 + 9) % 100}%`,
+                  width: size,
+                  height: size,
+                  animationDelay: `${-((index * 7) % 23)}s`,
+                  animationDuration: `${15 + (index % 9) * 2}s`,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
       <header className="fixed inset-x-0 top-0 z-50 pt-3">
         <div className="mx-auto flex h-16 w-[calc(100%-1.5rem)] max-w-[1500px] items-center justify-between rounded-full border border-gold/60 bg-[radial-gradient(circle_at_12%_0%,rgba(42,220,161,.30),transparent_34%),radial-gradient(circle_at_84%_10%,rgba(157,75,207,.32),transparent_38%),linear-gradient(100deg,rgba(5,12,10,.94),rgba(17,7,21,.94))] px-5 shadow-[0_0_28px_rgba(213,173,85,.18),inset_0_0_25px_rgba(255,255,255,.025)] backdrop-blur-xl lg:px-10">
