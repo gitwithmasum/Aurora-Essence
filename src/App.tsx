@@ -5,7 +5,6 @@ import {
   ChevronRight,
   Gift,
   Heart,
-  House,
   Menu,
   MessageCircle,
   Minus,
@@ -631,11 +630,9 @@ export default function App() {
             <a
               href="#home"
               onClick={closeMenus}
-              aria-label="Go to homepage"
-              title="Home"
-              className="grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+              className="py-3 text-xs uppercase tracking-[.15em] hover:text-gold-light"
             >
-              <House size={17} strokeWidth={1.7} aria-hidden="true" />
+              Home
             </a>
             <div className="group relative">
               <button
