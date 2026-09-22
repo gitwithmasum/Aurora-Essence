@@ -5,6 +5,7 @@ import {
   ChevronRight,
   Gift,
   Heart,
+  House,
   Menu,
   MessageCircle,
   Minus,
@@ -627,6 +628,15 @@ export default function App() {
           <nav
             className={`${mobileOpen ? "flex" : "hidden"} absolute left-3 right-3 top-20 flex-col gap-1 rounded-[24px] border border-gold/45 bg-[radial-gradient(circle_at_15%_0%,rgba(42,220,161,.22),transparent_38%),radial-gradient(circle_at_85%_10%,rgba(157,75,207,.25),transparent_42%),rgba(4,4,4,.97)] p-5 shadow-2xl backdrop-blur-xl lg:static lg:flex lg:flex-row lg:items-center lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}
           >
+            <a
+              href="#home"
+              onClick={closeMenus}
+              aria-label="Go to homepage"
+              title="Home"
+              className="grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+            >
+              <House size={17} strokeWidth={1.7} aria-hidden="true" />
+            </a>
             <div className="group relative">
               <button
                 onClick={() => setShopOpen((v) => !v)}
