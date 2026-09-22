@@ -16,4 +16,8 @@
 .site-aurora-light-violet{right:-29vmax;top:8vh;background:radial-gradient(circle,#7442aa 0%,#352051 34%,transparent 68%);animation-delay:-8s;animation-duration:29s}
 .site-aurora-light-teal{left:10vw;bottom:-52vmax;background:radial-gradient(circle,#238475 0%,#16443d 35%,transparent 67%);animation-delay:-14s;animation-duration:33s}
 @keyframes site-aurora-float{0%{transform:translate3d(-4%,1%,0) scale(.9)}50%{transform:translate3d(8%,-5%,0) scale(1.15)}100%{transform:translate3d(-2%,8%,0) scale(1)}}
-@media(prefers-reduced-motion:reduce){.hero-aurora-glow,.hero-aurora-ring,.hero-reveal,.site-aurora-light{animation:none;filter:none;opacity:1}.site-aurora-light{filter:blur(95px);opacity:.18}}
+.galaxy-particle{position:absolute;display:block;border-radius:50%;background:#f8e8bb;box-shadow:0 0 5px 1px rgba(218,180,105,.5);opacity:.35;animation:galaxy-float ease-in-out infinite alternate}
+.galaxy-particle:nth-child(4n){background:#c2a6f1;box-shadow:0 0 5px 1px rgba(165,123,215,.35)}
+.galaxy-particle:nth-child(7n){background:#b6f3e1;box-shadow:0 0 5px 1px rgba(108,207,185,.3)}
+@keyframes galaxy-float{0%{transform:translate3d(-9px,13px,0);opacity:.18}50%{opacity:.8}100%{transform:translate3d(14px,-22px,0);opacity:.35}}
+@media(prefers-reduced-motion:reduce){.hero-aurora-glow,.hero-aurora-ring,.hero-reveal,.site-aurora-light,.galaxy-particle{animation:none;filter:none;opacity:1}.site-aurora-light{filter:blur(95px);opacity:.18}.galaxy-particle{opacity:.3}}
