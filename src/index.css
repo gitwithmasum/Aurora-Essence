@@ -10,4 +10,10 @@
 .hero-aurora-ring-delayed{animation-delay:-4s}
 .hero-reveal{animation:hero-enter .9s both cubic-bezier(.2,.7,.2,1)}
 .hero-reveal-2{animation-delay:.15s}.hero-reveal-3{animation-delay:.3s}.hero-reveal-4{animation-delay:.45s}
-@media(prefers-reduced-motion:reduce){.hero-aurora-glow,.hero-aurora-ring,.hero-reveal{animation:none;filter:none;opacity:1}}
+.site-aurora-backdrop{background:#050505}
+.site-aurora-light{position:absolute;width:75vmax;height:75vmax;border-radius:50%;filter:blur(95px);opacity:.22;will-change:transform;animation:site-aurora-float 24s ease-in-out infinite alternate}
+.site-aurora-light-gold{left:-32vmax;top:-26vmax;background:radial-gradient(circle,#d5ad55 0%,#795515 28%,transparent 67%)}
+.site-aurora-light-violet{right:-29vmax;top:8vh;background:radial-gradient(circle,#7442aa 0%,#352051 34%,transparent 68%);animation-delay:-8s;animation-duration:29s}
+.site-aurora-light-teal{left:10vw;bottom:-52vmax;background:radial-gradient(circle,#238475 0%,#16443d 35%,transparent 67%);animation-delay:-14s;animation-duration:33s}
+@keyframes site-aurora-float{0%{transform:translate3d(-4%,1%,0) scale(.9)}50%{transform:translate3d(8%,-5%,0) scale(1.15)}100%{transform:translate3d(-2%,8%,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.hero-aurora-glow,.hero-aurora-ring,.hero-reveal,.site-aurora-light{animation:none;filter:none;opacity:1}.site-aurora-light{filter:blur(95px);opacity:.18}}
