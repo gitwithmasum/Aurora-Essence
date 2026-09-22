@@ -31,7 +31,18 @@ type Product = {
 
 type CartItem = {
   product: Product;
+  format: string;
   quantity: number;
+};
+
+const formatOptions = (product: Product) => {
+  if (product.category === "gifts") return ["Gift set — ask for details"];
+  if (product.category === "attar") {
+    return product.name === "Soft Oil" || product.name === "Choco Musk"
+      ? ["6 ml perfume oil"]
+      : ["Perfume oil — ask for size"];
+  }
+  return ["3 ml decant", "5 ml decant", "10 ml decant", "Full bottle — ask for size"];
 };
 
 type Profile = {
@@ -473,6 +484,10 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedFormat, setSelectedFormat] = useState<{
+    productName: string;
+    format: string;
+  } | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
@@ -539,22 +554,28 @@ export default function App() {
   const selectedProfile = selectedProduct
     ? profiles[selectedProduct.name]
     : undefined;
+  const quickViewFormat =
+    selectedFormat && selectedFormat.productName === selectedProduct?.name
+      ? selectedFormat.format
+      : "";
   const moveProduct = (direction: number) => {
     if (selectedIndex < 0) return;
     setSelectedProduct(
       products[(selectedIndex + direction + products.length) % products.length],
     );
   };
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, format = "Size to confirm") => {
     setCartItems((items) => {
-      const existing = items.find((item) => item.product.name === product.name);
+      const existing = items.find(
+        (item) => item.product.name === product.name && item.format === format,
+      );
       return existing
         ? items.map((item) =>
-            item.product.name === product.name
+            item.product.name === product.name && item.format === format
               ? { ...item, quantity: item.quantity + 1 }
               : item,
           )
-        : [...items, { product, quantity: 1 }];
+        : [...items, { product, format, quantity: 1 }];
     });
     setAddedProduct(product);
     window.setTimeout(
@@ -565,11 +586,11 @@ export default function App() {
       3500,
     );
   };
-  const changeQuantity = (productName: string, amount: number) => {
+  const changeQuantity = (productName: string, format: string, amount: number) => {
     setCartItems((items) =>
       items
         .map((item) =>
-          item.product.name === productName
+          item.product.name === productName && item.format === format
             ? { ...item, quantity: Math.max(0, item.quantity + amount) }
             : item,
         )
@@ -577,7 +598,7 @@ export default function App() {
     );
   };
   const orderSummary = cartItems
-    .map((item) => `${item.product.name} × ${item.quantity}`)
+    .map((item) => `${item.product.name} (${item.format}) × ${item.quantity}`)
     .join(", ");
   const selectFinderAnswer = (key: string, value: string) => {
     setFinderAnswers((answers) => ({ ...answers, [key]: value }));
@@ -1530,6 +1551,40 @@ export default function App() {
                 <p className="mt-3 text-sm text-stone-400">
                   {selectedProduct.mood}
                 </p>
+                <div className="mt-7 rounded-[22px] border border-gold/35 bg-gold/[.04] p-5 sm:p-6">
+                  <p className="font-display text-2xl text-gold-light sm:text-3xl">
+                    Price on request
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-stone-400">
+                    Price and availability depend on the selected size. Please confirm in inbox.
+                  </p>
+                  <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+                    <label
+                      htmlFor="quick-view-format"
+                      className="min-w-12 text-sm font-semibold text-gold-light"
+                    >
+                      {selectedProduct.category === "gifts" ? "Set:" : "ml:"}
+                    </label>
+                    <select
+                      id="quick-view-format"
+                      value={quickViewFormat}
+                      onChange={(event) =>
+                        setSelectedFormat({
+                          productName: selectedProduct.name,
+                          format: event.target.value,
+                        })
+                      }
+                      className="h-12 w-full flex-1 rounded-xl border border-gold/40 bg-[#15120c] px-4 text-sm text-stone-100 outline-none focus:border-gold"
+                    >
+                      <option value="">Choose an option</option>
+                      {formatOptions(selectedProduct).map((format) => (
+                        <option key={format} value={format}>
+                          {format}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 {selectedProfile ? (
                   <>
                     <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -1599,13 +1654,14 @@ export default function App() {
             </div>
             <div className="sticky bottom-0 z-20 grid gap-3 border-t border-gold/25 bg-black/90 p-4 backdrop-blur-xl sm:grid-cols-2 sm:px-10">
               <button
-                onClick={() => addToCart(selectedProduct)}
-                className="rounded-full border border-gold bg-gold/5 px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black"
+                onClick={() => addToCart(selectedProduct, quickViewFormat)}
+                disabled={!quickViewFormat}
+                className="rounded-full border border-gold bg-gold/5 px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em] text-gold-light transition hover:bg-gold hover:text-black disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Add to Cart
               </button>
               <a
-                href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(selectedProduct.name)}`}
+                href={`https://m.me/auroraessenceofficial?ref=${encodeURIComponent(`${selectedProduct.name} — ${quickViewFormat || "size inquiry"}`)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full bg-gradient-to-r from-gold-dark to-gold-light px-6 py-4 text-center text-[10px] font-semibold uppercase tracking-[.16em] text-black"
@@ -1715,9 +1771,9 @@ export default function App() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {cartItems.map(({ product, quantity }) => (
+                  {cartItems.map(({ product, format, quantity }) => (
                     <article
-                      key={product.name}
+                      key={`${product.name}-${format}`}
                       className="group relative overflow-hidden rounded-[24px] border border-gold/25 bg-white/[.025] p-4 transition hover:border-gold/50"
                     >
                       <div
@@ -1741,10 +1797,13 @@ export default function App() {
                           <p className="mt-1 truncate text-xs text-stone-500">
                             {product.mood}
                           </p>
+                          <span className="mt-2 inline-flex rounded-full border border-gold/35 px-3 py-1 text-xs text-gold-light">
+                            {format}
+                          </span>
                           <div className="mt-4 flex items-center justify-between gap-3">
                             <div className="flex items-center rounded-full border border-gold/30 bg-black/35 p-1">
                               <button
-                                onClick={() => changeQuantity(product.name, -1)}
+                                onClick={() => changeQuantity(product.name, format, -1)}
                                 className="grid h-8 w-8 place-items-center rounded-full text-stone-400 transition hover:bg-gold hover:text-black"
                                 aria-label={`Decrease ${product.name} quantity`}
                               >
@@ -1754,7 +1813,7 @@ export default function App() {
                                 {quantity}
                               </span>
                               <button
-                                onClick={() => changeQuantity(product.name, 1)}
+                                onClick={() => changeQuantity(product.name, format, 1)}
                                 className="grid h-8 w-8 place-items-center rounded-full text-stone-400 transition hover:bg-gold hover:text-black"
                                 aria-label={`Increase ${product.name} quantity`}
                               >
@@ -1763,7 +1822,7 @@ export default function App() {
                             </div>
                             <button
                               onClick={() =>
-                                changeQuantity(product.name, -quantity)
+                                changeQuantity(product.name, format, -quantity)
                               }
                               className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-stone-500 transition hover:border-red-400/40 hover:text-red-300"
                               aria-label={`Remove ${product.name} from cart`}
