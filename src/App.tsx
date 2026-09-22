@@ -792,20 +792,25 @@ export default function App() {
           <TriangleLedFront />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/15" />
+        <div aria-hidden="true" className="hero-aurora pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="hero-aurora-glow absolute -right-[22%] top-[4%] h-[85%] w-[85%] rounded-full bg-[radial-gradient(ellipse,rgba(205,156,66,.24),rgba(126,82,161,.12)_38%,transparent_70%)] blur-3xl" />
+          <div className="hero-aurora-ring absolute right-[8%] top-[20%] h-[min(55vw,560px)] w-[min(55vw,560px)] rounded-full border border-gold/20" />
+          <div className="hero-aurora-ring hero-aurora-ring-delayed absolute right-[14%] top-[27%] h-[min(42vw,420px)] w-[min(42vw,420px)] rounded-full border border-gold/15" />
+        </div>
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-28 lg:px-20">
-          <p className="text-[11px] font-semibold tracking-[.3em] text-gold">
+          <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">
             CURATED ARABIAN FRAGRANCES
           </p>
-          <h1 className="mt-7 max-w-4xl font-display text-6xl font-semibold leading-[.82] tracking-tight sm:text-8xl lg:text-[112px]">
+          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-4xl font-display text-6xl font-semibold leading-[.82] tracking-tight sm:text-8xl lg:text-[112px]">
             Wear the aura.
             <br />
             <em className="font-medium text-gold-light">Own the moment.</em>
           </h1>
-          <p className="mt-9 max-w-xl text-sm leading-7 text-stone-400">
+          <p className="hero-reveal hero-reveal-3 mt-9 max-w-xl text-sm leading-7 text-stone-400">
             A modern destination for bold Middle Eastern scents—selected for
             every mood, every memory, and every signature.
           </p>
-          <div className="mt-10 flex flex-wrap gap-5">
+          <div className="hero-reveal hero-reveal-4 mt-10 flex flex-wrap gap-5">
             <a
               href="#collection"
               className="inline-flex items-center gap-8 bg-gradient-to-r from-gold-dark to-gold-light px-6 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black"
