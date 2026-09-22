@@ -716,6 +716,18 @@ export default function App() {
               Scent Finder
             </a>
             <div className="flex items-center gap-2 py-2 lg:py-0">
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenus();
+                  document.getElementById("collection-search")?.focus();
+                }}
+                aria-label="Search perfumes"
+                title="Search"
+                className="grid h-10 w-10 place-items-center rounded-full border border-gold/70 bg-gold/5 text-gold-light transition hover:bg-gold hover:text-black hover:shadow-[0_0_22px_rgba(213,173,85,.28)]"
+              >
+                <Search size={17} strokeWidth={1.7} aria-hidden="true" />
+              </button>
               <a
                 href="https://www.facebook.com/auroraessenceofficial/"
                 target="_blank"
@@ -824,6 +836,7 @@ export default function App() {
                 size={18}
               />
               <input
+                id="collection-search"
                 value={collectionSearch}
                 onChange={(event) => setCollectionSearch(event.target.value)}
                 placeholder="Search perfume, brand or fragrance note..."
