@@ -27,6 +27,7 @@ type Product = {
   category: string;
   tone: string;
   badge?: string;
+  image?: string;
 };
 
 type CartItem = {
@@ -104,8 +105,8 @@ const finderQuestions = [
 
 const scentMatches: Record<string, string[]> = {
   Sweet: ["Khamrah", "Yara", "9PM", "Choco Musk"],
-  Fresh: ["Club de Nuit Intense", "Soft Oil", "Musk Tahara", "Yara"],
-  Woody: ["Asad", "Tobacco Touch", "Club de Nuit Intense", "9PM"],
+  Fresh: ["Najdia", "Club de Nuit Intense", "Soft Oil", "Yara"],
+  Woody: ["Qaed Al Fursan", "Asad", "Tobacco Touch", "9PM"],
   Spicy: ["Khamrah Qahwa", "Asad", "Khamrah", "Tobacco Touch"],
   Musky: ["Musk Tahara", "Choco Musk", "Soft Oil", "Yara"],
 };
@@ -119,6 +120,24 @@ const products: Product[] = [
     category: "mens",
     tone: "from-zinc-500/60 to-black",
     badge: "BESTSELLER",
+  },
+  {
+    brand: "LATTAFA",
+    name: "Najdia",
+    mood: "Fresh · Aquatic",
+    notes: "Grapefruit · Spice · Amber",
+    category: "mens",
+    tone: "from-teal-800/60 to-black",
+    image: "/assets/najdia-edp.webp",
+  },
+  {
+    brand: "LATTAFA",
+    name: "Qaed Al Fursan",
+    mood: "Fruity · Woody",
+    notes: "Pineapple · Saffron · Oud",
+    category: "unisex",
+    tone: "from-amber-700/60 to-black",
+    image: "/assets/qaed-al-fursan.webp",
   },
   {
     brand: "AFNAN",
@@ -239,6 +258,30 @@ const products: Product[] = [
 ];
 
 const profiles: Record<string, Profile> = {
+  Najdia: {
+    top: "Grapefruit, Mandarin",
+    middle: "Spicy Notes, Rose, Cinnamon",
+    base: "Amber, Leather, Patchouli, Woody Notes",
+    type: "EDP",
+    season: "All year; especially warm days",
+    time: "Day and evening",
+    suitable: "Daily wear, university and casual outings",
+    longevity: "Varies by skin and conditions*",
+    projection: "Varies by application",
+    usage: "Start with 3 sprays on the neck and pulse points; adjust up to 5 as preferred.",
+  },
+  "Qaed Al Fursan": {
+    top: "Saffron, Pineapple",
+    middle: "Jasmine, Fir Balsam",
+    base: "Oud Wood, Cedarwood, Amber",
+    type: "EDP",
+    season: "All year",
+    time: "Day and evening",
+    suitable: "Casual outings and evening occasions",
+    longevity: "Varies by skin and conditions*",
+    projection: "Varies by application",
+    usage: "Start with 3 sprays on the neck and pulse points; adjust up to 5 as preferred.",
+  },
   Asad: {
     top: "Black Pepper, Pineapple, Tobacco",
     middle: "Coffee, Iris, Patchouli",
@@ -459,14 +502,19 @@ function ProductCard({
           {product.badge}
         </span>
       )}
-      <div
+      {product.image ? <img
+        src={product.image}
+        alt={`${product.brand} ${product.name} promotional image`}
+        className="absolute left-1/2 top-14 h-64 w-64 -translate-x-1/2 rounded-xl object-cover shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105"
+        loading="lazy"
+      /> : <div
         className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
       >
         <div className="absolute -top-9 left-1/2 h-11 w-[72px] -translate-x-1/2 rounded-t-md bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
         <span className="grid h-full place-items-center px-3 text-center font-display text-xl tracking-wider text-gold-light">
           {product.name.toUpperCase()}
         </span>
-      </div>
+      </div>}
       <div className="absolute bottom-7 left-7 right-7">
         <p className="text-[9px] tracking-[.22em] text-gold">{product.brand}</p>
         <h3 className="font-display text-3xl">{product.name}</h3>
@@ -974,9 +1022,11 @@ export default function App() {
                           fill={liked ? "currentColor" : "none"}
                         />
                       </button>
-                      <span className="font-display text-6xl text-white/70">
-                        {product.name.charAt(0)}
-                      </span>
+                      {product.image ? (
+                        <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="h-full w-full object-cover" loading="lazy" />
+                      ) : (
+                        <span className="font-display text-6xl text-white/70">{product.name.charAt(0)}</span>
+                      )}
                     </div>
                     <div className="p-5">
                       <p className="text-[9px] uppercase tracking-[.2em] text-gold">
@@ -1284,12 +1334,8 @@ export default function App() {
                     key={product.name}
                     className="rounded-[22px] border border-gold/25 bg-white/[.025] p-5"
                   >
-                    <div
-                      className={`grid h-32 place-items-center rounded-[16px] bg-gradient-to-br ${product.tone}`}
-                    >
-                      <span className="font-display text-4xl text-white/80">
-                        {product.name.charAt(0)}
-                      </span>
+                    <div className={`grid h-32 place-items-center overflow-hidden rounded-[16px] bg-gradient-to-br ${product.tone}`}>
+                      {product.image ? <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="h-full w-full object-cover" loading="lazy" /> : <span className="font-display text-4xl text-white/80">{product.name.charAt(0)}</span>}
                     </div>
                     <p className="mt-5 text-[9px] uppercase tracking-[.2em] text-gold">
                       Match 0{index + 1} · {product.brand}
@@ -1547,14 +1593,16 @@ export default function App() {
                 <span className="absolute left-7 top-7 text-[9px] tracking-[.22em] text-gold">
                   {selectedProduct.brand}
                 </span>
-                <div
+                {selectedProduct.image ? (
+                  <img src={selectedProduct.image} alt={`${selectedProduct.brand} ${selectedProduct.name} promotional image`} className="h-80 w-80 max-w-[80%] rounded-2xl object-cover shadow-[0_35px_65px_rgba(0,0,0,.65)] lg:h-[460px] lg:w-[460px]" />
+                ) : <div
                   className={`relative h-72 w-44 rounded-[36px] border border-gold/45 bg-gradient-to-br ${selectedProduct.tone} shadow-[0_35px_65px_rgba(0,0,0,.65)]`}
                 >
                   <div className="absolute -top-12 left-1/2 h-14 w-24 -translate-x-1/2 rounded-t-lg bg-gradient-to-r from-[#241c10] via-gold to-[#33250f]" />
                   <span className="grid h-full place-items-center px-5 text-center font-display text-2xl tracking-wider text-gold-light">
                     {selectedProduct.name.toUpperCase()}
                   </span>
-                </div>
+                </div>}
                 <div className="absolute bottom-6 flex gap-3">
                   <button
                     onClick={() => moveProduct(-1)}
@@ -1812,9 +1860,7 @@ export default function App() {
                         <div
                           className={`grid h-20 w-20 shrink-0 place-items-center rounded-[18px] border border-white/10 bg-gradient-to-br ${product.tone}`}
                         >
-                          <span className="font-display text-2xl text-white/80">
-                            {product.name.charAt(0)}
-                          </span>
+                          {product.image ? <img src={product.image} alt="" className="h-full w-full rounded-[18px] object-cover" /> : <span className="font-display text-2xl text-white/80">{product.name.charAt(0)}</span>}
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="text-[9px] uppercase tracking-[.2em] text-gold">
