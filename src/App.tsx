@@ -1005,16 +1005,16 @@ export default function App() {
                     className="group overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0a08] transition hover:-translate-y-1 hover:border-gold/45"
                   >
                     <div
-                      className={`relative grid h-48 place-items-center bg-gradient-to-br ${product.tone}`}
+                      className={`relative grid h-48 min-h-0 place-items-center overflow-hidden bg-gradient-to-br ${product.tone}`}
                     >
                       {product.badge && (
-                        <span className="absolute left-4 top-4 rounded-full border border-gold/45 bg-black/65 px-3 py-1.5 text-[8px] tracking-[.16em] text-gold">
+                        <span className="absolute left-4 top-4 z-10 rounded-full border border-gold/45 bg-black/65 px-3 py-1.5 text-[8px] tracking-[.16em] text-gold">
                           {product.badge}
                         </span>
                       )}
                       <button
                         onClick={() => toggleWishlist(product.name)}
-                        className={`absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border transition ${liked ? "border-gold bg-gold text-black" : "border-white/20 bg-black/55 text-white hover:border-gold hover:text-gold"}`}
+                        className={`absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full border transition ${liked ? "border-gold bg-gold text-black" : "border-white/20 bg-black/55 text-white hover:border-gold hover:text-gold"}`}
                         aria-label={`${liked ? "Remove" : "Add"} ${product.name} ${liked ? "from" : "to"} wishlist`}
                       >
                         <Heart
@@ -1023,7 +1023,7 @@ export default function App() {
                         />
                       </button>
                       {product.image ? (
-                        <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="h-full w-full object-contain" loading="lazy" />
+                        <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="absolute inset-0 h-full w-full object-contain" loading="lazy" />
                       ) : (
                         <span className="font-display text-6xl text-white/70">{product.name.charAt(0)}</span>
                       )}
