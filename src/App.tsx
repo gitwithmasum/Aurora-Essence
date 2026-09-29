@@ -505,7 +505,7 @@ function ProductCard({
       {product.image ? <img
         src={product.image}
         alt={`${product.brand} ${product.name} promotional image`}
-        className="absolute left-1/2 top-14 h-64 w-64 -translate-x-1/2 rounded-xl object-cover shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105"
+        className="absolute left-1/2 top-14 h-48 w-48 -translate-x-1/2 rounded-xl object-contain shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105"
         loading="lazy"
       /> : <div
         className={`absolute left-1/2 top-20 h-56 w-32 -translate-x-1/2 rounded-3xl border border-gold/40 bg-gradient-to-br ${product.tone} shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:scale-105`}
@@ -1023,7 +1023,7 @@ export default function App() {
                         />
                       </button>
                       {product.image ? (
-                        <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="h-full w-full object-cover" loading="lazy" />
+                        <img src={product.image} alt={`${product.brand} ${product.name} promotional image`} className="h-full w-full object-contain" loading="lazy" />
                       ) : (
                         <span className="font-display text-6xl text-white/70">{product.name.charAt(0)}</span>
                       )}
@@ -1594,7 +1594,7 @@ export default function App() {
                   {selectedProduct.brand}
                 </span>
                 {selectedProduct.image ? (
-                  <img src={selectedProduct.image} alt={`${selectedProduct.brand} ${selectedProduct.name} promotional image`} className="h-80 w-80 max-w-[80%] rounded-2xl object-cover shadow-[0_35px_65px_rgba(0,0,0,.65)] lg:h-[460px] lg:w-[460px]" />
+                  <img src={selectedProduct.image} alt={`${selectedProduct.brand} ${selectedProduct.name} promotional image`} className="aspect-square h-auto w-[min(76%,420px)] rounded-2xl object-contain shadow-[0_35px_65px_rgba(0,0,0,.65)]" />
                 ) : <div
                   className={`relative h-72 w-44 rounded-[36px] border border-gold/45 bg-gradient-to-br ${selectedProduct.tone} shadow-[0_35px_65px_rgba(0,0,0,.65)]`}
                 >
