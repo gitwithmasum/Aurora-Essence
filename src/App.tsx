@@ -128,7 +128,7 @@ const products: Product[] = [
     notes: "Grapefruit · Spice · Amber",
     category: "mens",
     tone: "from-teal-800/60 to-black",
-    image: "/assets/najdia-edp.webp",
+    image: `${import.meta.env.BASE_URL}assets/najdia-edp.webp`,
   },
   {
     brand: "LATTAFA",
@@ -137,7 +137,7 @@ const products: Product[] = [
     notes: "Pineapple · Saffron · Oud",
     category: "unisex",
     tone: "from-amber-700/60 to-black",
-    image: "/assets/qaed-al-fursan.webp",
+    image: `${import.meta.env.BASE_URL}assets/qaed-al-fursan.webp`,
   },
   {
     brand: "AFNAN",
