@@ -189,6 +189,7 @@ const products: Product[] = [
   {
     brand: "ARMAF",
     name: "Club de Nuit Intense",
+    image: `${import.meta.env.BASE_URL}assets/armaf-club-de-nuit-intense.webp`,
     mood: "Citrus · Smoky",
     notes: "Lemon · Birch · Musk",
     category: "mens",
