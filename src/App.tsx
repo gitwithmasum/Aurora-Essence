@@ -181,6 +181,7 @@ const products: Product[] = [
   {
     brand: "AFNAN",
     name: "9PM",
+    image: `${import.meta.env.BASE_URL}assets/afnan-9pm.webp`,
     mood: "Fresh · Woody",
     notes: "Apple · Lavender · Vanilla",
     category: "mens",
