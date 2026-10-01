@@ -113,6 +113,15 @@ const scentMatches: Record<string, string[]> = {
 
 const products: Product[] = [
   {
+    brand: "AFNAN",
+    name: "9 AM Dive",
+    mood: "Fresh · Aquatic",
+    notes: "Citrus · Mint · Woods",
+    category: "unisex",
+    tone: "from-sky-700/60 to-slate-950",
+    image: `${import.meta.env.BASE_URL}assets/afnan-9-am-dive.webp`,
+  },
+  {
     brand: "LATTAFA",
     name: "Asad",
     mood: "Bold · Amber Spicy",
