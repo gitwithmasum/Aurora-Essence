@@ -113,6 +113,15 @@ const scentMatches: Record<string, string[]> = {
 
 const products: Product[] = [
   {
+    brand: "AFNAN",
+    name: "9PM Rebel",
+    mood: "9PM Rebel · EDP",
+    notes: "Ask us for fragrance details",
+    category: "unisex",
+    tone: "from-red-800/60 to-black",
+    image: `${import.meta.env.BASE_URL}assets/afnan-9pm-rebel.webp`,
+  },
+  {
     brand: "LATTAFA",
     name: "Asad Zanzibar",
     mood: "Asad Zanzibar · EDP",
