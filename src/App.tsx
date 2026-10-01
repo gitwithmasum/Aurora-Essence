@@ -235,6 +235,7 @@ const products: Product[] = [
   {
     brand: "LATTAFA",
     name: "Khamrah",
+    image: `${import.meta.env.BASE_URL}assets/lattafa-khamrah.webp`,
     mood: "Warm · Gourmand",
     notes: "Cinnamon · Praline · Vanilla",
     category: "unisex",
