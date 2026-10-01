@@ -208,6 +208,7 @@ const products: Product[] = [
   {
     brand: "LATTAFA",
     name: "Fakhar Rose",
+    image: `${import.meta.env.BASE_URL}assets/lattafa-fakhar-rose.webp`,
     mood: "Floral · Elegant",
     notes: "Fruit · Jasmine · Vanilla",
     category: "womens",
