@@ -1637,7 +1637,7 @@ export default function App() {
           onClick={() => setSelectedProduct(null)}
         >
           <div
-            className="relative max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] border border-gold/45 bg-[radial-gradient(circle_at_15%_10%,rgba(42,220,161,.10),transparent_30%),radial-gradient(circle_at_85%_10%,rgba(157,75,207,.12),transparent_32%),#090806] shadow-[0_0_80px_rgba(0,0,0,.75)] sm:max-w-5xl sm:rounded-[32px]"
+            className="relative flex h-[94dvh] max-h-[94dvh] w-full flex-col overflow-hidden rounded-t-[32px] border border-gold/45 bg-[radial-gradient(circle_at_15%_10%,rgba(42,220,161,.10),transparent_30%),radial-gradient(circle_at_85%_10%,rgba(157,75,207,.12),transparent_32%),#090806] shadow-[0_0_80px_rgba(0,0,0,.75)] sm:max-w-5xl sm:rounded-[32px]"
             onClick={(event) => event.stopPropagation()}
           >
             <button
@@ -1647,13 +1647,13 @@ export default function App() {
             >
               <X size={17} />
             </button>
-            <div className="grid lg:grid-cols-[.85fr_1.15fr]">
-              <div className="relative grid min-h-[400px] place-items-center overflow-hidden border-b border-gold/20 bg-[radial-gradient(circle,rgba(213,173,85,.16),transparent_60%)] lg:min-h-[680px] lg:border-b-0 lg:border-r">
+            <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,34%)_minmax(0,1fr)] overflow-hidden md:grid-cols-[.85fr_1.15fr] md:grid-rows-1">
+              <div className="relative grid min-h-0 place-items-center overflow-hidden border-b border-gold/20 bg-[radial-gradient(circle,rgba(213,173,85,.16),transparent_60%)] md:border-b-0 md:border-r">
                 <span className="absolute left-7 top-7 text-[9px] tracking-[.22em] text-gold">
                   {selectedProduct.brand}
                 </span>
                 {selectedProduct.image ? (
-                  <img src={selectedProduct.image} alt={`${selectedProduct.brand} ${selectedProduct.name} promotional image`} className="aspect-square h-auto w-[min(76%,420px)] rounded-2xl object-contain shadow-[0_35px_65px_rgba(0,0,0,.65)]" />
+                  <img src={selectedProduct.image} alt={`${selectedProduct.brand} ${selectedProduct.name} promotional image`} className="aspect-square max-h-[calc(100%-80px)] w-auto max-w-[76%] rounded-2xl object-contain shadow-[0_35px_65px_rgba(0,0,0,.65)]" />
                 ) : <div
                   className={`relative h-72 w-44 rounded-[36px] border border-gold/45 bg-gradient-to-br ${selectedProduct.tone} shadow-[0_35px_65px_rgba(0,0,0,.65)]`}
                 >
@@ -1677,7 +1677,7 @@ export default function App() {
                   </button>
                 </div>
               </div>
-              <div className="p-6 pb-28 sm:p-10 sm:pb-28">
+              <div className="min-h-0 overflow-y-auto overscroll-contain p-6 sm:p-10" tabIndex={0} aria-label="Scrollable fragrance details">
                 <p className="text-[10px] uppercase tracking-[.24em] text-gold">
                   Fragrance Quick View
                 </p>
@@ -1798,7 +1798,7 @@ export default function App() {
                 )}
               </div>
             </div>
-            <div className="sticky bottom-0 z-20 grid gap-3 border-t border-gold/25 bg-black/90 p-4 backdrop-blur-xl sm:grid-cols-2 sm:px-10">
+            <div className="relative z-20 grid shrink-0 gap-3 border-t border-gold/25 bg-black/90 p-4 backdrop-blur-xl sm:grid-cols-2 sm:px-10">
               <button
                 onClick={() => addToCart(selectedProduct, quickViewFormat)}
                 disabled={!quickViewFormat}
