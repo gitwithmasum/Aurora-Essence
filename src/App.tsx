@@ -113,6 +113,15 @@ const scentMatches: Record<string, string[]> = {
 
 const products: Product[] = [
   {
+    brand: "LATTAFA",
+    name: "Fakhar Black EDP",
+    mood: "Fresh · Aromatic",
+    notes: "Fresh · Woody · Aromatic",
+    category: "mens",
+    tone: "from-zinc-500/60 to-black",
+    image: `${import.meta.env.BASE_URL}assets/lattafa-fakhar-black.webp`,
+  },
+  {
     brand: "AFNAN",
     name: "9 AM Dive",
     mood: "Fresh · Aquatic",
