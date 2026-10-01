@@ -198,6 +198,7 @@ const products: Product[] = [
   {
     brand: "LATTAFA",
     name: "Yara",
+    image: `${import.meta.env.BASE_URL}assets/lattafa-yara.webp`,
     mood: "Soft · Creamy",
     notes: "Orchid · Tropical Fruit · Vanilla",
     category: "womens",
