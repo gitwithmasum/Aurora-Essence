@@ -114,6 +114,15 @@ const scentMatches: Record<string, string[]> = {
 const products: Product[] = [
   {
     brand: "LATTAFA",
+    name: "Asad Zanzibar",
+    mood: "Asad Zanzibar · EDP",
+    notes: "Ask us for fragrance details",
+    category: "mens",
+    tone: "from-blue-800/60 to-black",
+    image: `${import.meta.env.BASE_URL}assets/lattafa-asad-zanzibar.webp`,
+  },
+  {
+    brand: "LATTAFA",
     name: "Fakhar Black EDP",
     mood: "Fresh · Aromatic",
     notes: "Fresh · Woody · Aromatic",
