@@ -115,6 +115,15 @@ const scentMatches: Record<string, string[]> = {
 
 const products: Product[] = [
   {
+    brand: "CHANEL",
+    name: "BLEU DE CHANEL EDP",
+    mood: "Aromatic · Woody · Ambery",
+    notes: "Citrus · Cedar · Sandalwood",
+    category: "mens",
+    tone: "from-blue-950/80 to-black",
+    image: `${import.meta.env.BASE_URL}assets/bleu-de-chanel-edp.webp`,
+  },
+  {
     brand: "AFNAN",
     name: "9PM Rebel",
     mood: "Fruity · Woody · Amber",
@@ -302,6 +311,20 @@ const products: Product[] = [
 ];
 
 const profiles: Record<string, Profile> = {
+  "BLEU DE CHANEL EDP": {
+    top: "Fresh citrus accord (opening described by CHANEL)",
+    middle: "Aromatic, ambery and musky character; no separate official heart pyramid published",
+    base: "Cedar and New Caledonian sandalwood (key woody accords)",
+    type: "Men’s Eau de Parfum",
+    season: "All year; apply lightly in hot, humid weather",
+    time: "Day and evening",
+    suitable: "Suggested for office wear, dinners, dates and formal occasions",
+    longevity: "No fixed duration verified; varies by skin and conditions*",
+    projection: "Varies by skin, setting and spray count",
+    usage: "Start with 3 sprays on the neck and pulse points; let the fragrance settle before adjusting up to 5. Use less in heat or enclosed spaces. Occasion suggestions are Aurora Essence guidance, not manufacturer performance guarantees.",
+    source: "https://www.chanel.com/us/fragrance/p/107360/bleu-de-chanel-eau-de-parfum-spray/",
+    size: "Manufacturer offers 50, 100 and 150 ml; confirm the available bottle size in inbox",
+  },
   "9PM Rebel": {
     top: "Mandarin, Pineapple, Granny Smith Apple",
     middle: "Cedarwood, Oakmoss, Vanilla",
