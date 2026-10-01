@@ -167,7 +167,7 @@ const products: Product[] = [
     category: "mens",
     tone: "from-zinc-500/60 to-black",
     badge: "BESTSELLER",
-    image: `${import.meta.env.BASE_URL}assets/lattafa-asad.webp`,
+    image: `${import.meta.env.BASE_URL}assets/lattafa-asad-gold-v2.webp`,
   },
   {
     brand: "LATTAFA",
