@@ -115,8 +115,8 @@ const products: Product[] = [
   {
     brand: "AFNAN",
     name: "9PM Rebel",
-    mood: "9PM Rebel · EDP",
-    notes: "Ask us for fragrance details",
+    mood: "Fruity · Woody · Amber",
+    notes: "Pineapple · Vanilla · Caramel",
     category: "unisex",
     tone: "from-red-800/60 to-black",
     image: `${import.meta.env.BASE_URL}assets/afnan-9pm-rebel.webp`,
@@ -295,6 +295,18 @@ const products: Product[] = [
 ];
 
 const profiles: Record<string, Profile> = {
+  "9PM Rebel": {
+    top: "Mandarin, Pineapple, Granny Smith Apple",
+    middle: "Cedarwood, Oakmoss, Vanilla",
+    base: "Caramel, Dry Woods, Ambergris, Musk",
+    type: "Unisex EDP",
+    season: "All year; start light in hot weather",
+    time: "Day and night",
+    suitable: "Casual outings, dates and evening occasions",
+    longevity: "Varies by skin and conditions*",
+    projection: "Varies by application and conditions",
+    usage: "Apply 3 sprays to the neck and pulse points. Allow the fragrance to settle; adjust up to 5 sprays as preferred.",
+  },
   Najdia: {
     top: "Grapefruit, Mandarin",
     middle: "Spicy Notes, Rose, Cinnamon",
