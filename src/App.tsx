@@ -47,6 +47,8 @@ const formatOptions = (product: Product) => {
 };
 
 type Profile = {
+  source?: string;
+  size?: string;
   top: string;
   middle: string;
   base: string;
@@ -124,8 +126,8 @@ const products: Product[] = [
   {
     brand: "LATTAFA",
     name: "Asad Zanzibar",
-    mood: "Asad Zanzibar · EDP",
-    notes: "Ask us for fragrance details",
+    mood: "Spicy · Marine · Vanilla",
+    notes: "Coconut Water · Iris · Vanilla",
     category: "mens",
     tone: "from-blue-800/60 to-black",
     image: `${import.meta.env.BASE_URL}assets/lattafa-asad-zanzibar.webp`,
@@ -134,7 +136,7 @@ const products: Product[] = [
     brand: "LATTAFA",
     name: "Fakhar Black EDP",
     mood: "Fresh · Aromatic",
-    notes: "Fresh · Woody · Aromatic",
+    notes: "Apple · Lavender · Cedar",
     category: "mens",
     tone: "from-zinc-500/60 to-black",
     image: `${import.meta.env.BASE_URL}assets/lattafa-fakhar-black.webp`,
@@ -488,6 +490,14 @@ const profiles: Record<string, Profile> = {
       "Apply a small swipe to clean pulse points. Keep application light for a soft, clean scent trail.",
   },
 };
+
+profiles["Asad Zanzibar"] = {"top":"Black Pepper, Sea Lavender","middle":"Salty Coconut Water, Iris","base":"Vanilla, Incense","type":"Men’s EDP","season":"Warm days and mild evenings","time":"Day and evening","suitable":"Casual outings, holidays and relaxed evenings","source":"https://lattafa.com/product/asad-zanzibar/","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["9 AM Dive"] = {"top":"Lemon, Pink Pepper, Mint, Black Currant","middle":"Apple, Incense, Cedar","base":"Patchouli, Jasmine, Ginger, Sandalwood","type":"Unisex EDP","season":"Spring and warm weather","time":"Day and evening","suitable":"Daily wear, university, office and casual outings","source":"https://afnan.com/products/9-am-dive","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["Fakhar Black EDP"] = {"top":"Apple, Bergamot, Ginger","middle":"Lavender, Sage, Juniper Berries, Geranium","base":"Tonka Bean, Cedar, Amberwood, Vetiver","type":"Men’s EDP","season":"Spring and warm weather","time":"Day and evening","suitable":"Office, university and everyday outings","source":"https://www.lattafa-usa.com/products/fakhar-men","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["Asad"] = {"top":"Black Pepper, Pineapple, Tobacco","middle":"Coffee, Iris, Patchouli","base":"Amber, Vanilla, Dry Woods, Benzoin, Labdanum","type":"Men’s EDP","season":"Winter and cool evenings","time":"Evening and night","suitable":"Formal events, dates and parties","source":"https://lattafa.com/product/asad/","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["Najdia"] = {"top":"Grapefruit, Mandarin","middle":"Spicy Notes, Rose, Cinnamon","base":"Amber, Leather, Patchouli, Woody Notes","type":"EDP","season":"Warm days","time":"Day and evening","suitable":"Daily wear, university and casual outings","source":"https://lattafa.com/product/najdia/","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["Qaed Al Fursan"] = {"top":"Saffron, Pineapple","middle":"Jasmine, Fir Balsam","base":"Oud Wood, Cedarwood, Amber","type":"Unisex EDP","season":"All year","time":"Day and evening","suitable":"Casual outings and evening occasions","source":"https://lattafa.com/product/qaed-al-fursan/","size":"90 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+profiles["9PM Rebel"] = {"top":"Mandarin, Pineapple, Granny Smith Apple","middle":"Cedarwood, Oakmoss, Vanilla","base":"Caramel, Dry Woods, Ambergris, Musk","type":"Unisex EDP","season":"All year; start light in heat","time":"Day and night","suitable":"Casual outings, dates and evening occasions","source":"https://afnan.com/products/9-pm-rebel","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
 
 const sections = [
   {
@@ -1735,6 +1745,7 @@ export default function App() {
                     <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {[
                         ["Type", selectedProfile.type],
+                        ...(selectedProfile.size ? [["Full Bottle", selectedProfile.size]] : []),
                         ["Best Season", selectedProfile.season],
                         ["Best Time", selectedProfile.time],
                         ["Suitable For", selectedProfile.suitable],
@@ -1762,6 +1773,15 @@ export default function App() {
                         {selectedProfile.usage}
                       </p>
                     </div>
+                    {selectedProfile.source && (
+                      <div className="mt-5 rounded-[20px] border border-gold/25 bg-gold/5 p-5">
+                        <p className="text-[9px] uppercase tracking-[.18em] text-gold">Ingredients &amp; product care</p>
+                        <p className="mt-2 text-xs leading-6 text-stone-300">The notes above describe scent accords, not a complete ingredient list or formula. A verified batch-specific ingredient/allergen list is not available here. Ask us for a photo of the actual box ingredient label before ordering, especially if you have ingredient sensitivities.</p>
+                        <p className="mt-2 text-xs leading-6 text-stone-300">Store tightly closed in a cool, dry place away from sunlight and heat. Avoid eyes and irritated skin. Season, time and occasion are wearing suggestions. Full-bottle size is a reference; confirm your chosen format before ordering.</p>
+                        {(selectedProduct.name === "Najdia" || selectedProduct.name === "Fakhar Black EDP") && <p className="mt-2 text-xs leading-6 text-stone-300">Published note descriptions differ between sources. This profile follows the brand page linked below.</p>}
+                        <a href={selectedProfile.source} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs text-gold underline">View brand product information ↗</a>
+                      </div>
+                    )}
                     <p className="mt-3 text-[9px] leading-4 text-stone-600">
                       *Longevity and projection may vary by skin, weather, batch
                       and application.
