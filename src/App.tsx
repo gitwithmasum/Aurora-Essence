@@ -106,23 +106,14 @@ const finderQuestions = [
 ] as const;
 
 const scentMatches: Record<string, string[]> = {
-  Sweet: ["Khamrah", "Yara", "9PM", "Choco Musk"],
+  Sweet: ["Khamrah", "Yara", "9PM", "Choco Musk Spray"],
   Fresh: ["Najdia", "Club de Nuit Intense", "Soft Oil", "Yara"],
   Woody: ["Qaed Al Fursan", "Asad", "Tobacco Touch", "9PM"],
   Spicy: ["Khamrah Qahwa", "Asad", "Khamrah", "Tobacco Touch"],
-  Musky: ["Musk Tahara", "Choco Musk", "Soft Oil", "Yara"],
+  Musky: ["Musk Tahara", "Choco Musk Spray", "Soft Oil", "Yara"],
 };
 
 const products: Product[] = [
-  {
-    brand: "AL REHAB",
-    name: "Choco Musk Spray",
-    mood: "Chocolate · Vanilla · Musk",
-    notes: "Chocolate · Vanilla · Musk",
-    category: "unisex",
-    tone: "from-amber-900/60 to-black",
-    image: `${import.meta.env.BASE_URL}assets/al-rehab-choco-musk-spray-gold.webp`,
-  },
   {
     brand: "CHANEL",
     name: "BLEU DE CHANEL EDP",
@@ -282,12 +273,13 @@ const products: Product[] = [
   },
   {
     brand: "AL REHAB",
-    name: "Choco Musk",
-    mood: "Chocolate · Musk",
-    notes: "Cacao · Vanilla · White Musk",
-    category: "attar",
-    tone: "from-amber-700/60 to-stone-950",
+    name: "Choco Musk Spray",
+    mood: "Chocolate · Vanilla · Musk",
+    notes: "Chocolate · Vanilla · Musk",
+    category: "unisex",
     badge: "POPULAR",
+    tone: "from-amber-900/60 to-black",
+    image: `${import.meta.env.BASE_URL}assets/al-rehab-choco-musk-spray-gold.webp`,
   },
   {
     brand: "SWISS ARABIAN",
