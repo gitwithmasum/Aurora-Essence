@@ -141,7 +141,7 @@ const products: Product[] = [
       "notes": "Almond · Tonka · Vanilla",
       "category": "attar",
       "tone": "from-amber-900/60 to-black",
-      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-tonka-cpo.webp`
+      "image": `${import.meta.env.BASE_URL}assets/swiss-arabian-shaghaf-oud-tonka-cpo-gold.webp`
   },
   {
       "brand": "SWISS ARABIAN",
