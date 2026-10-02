@@ -256,6 +256,7 @@ const products: Product[] = [
   {
     brand: "MAISON ALHAMBRA",
     name: "Tobacco Touch",
+    image: `${import.meta.env.BASE_URL}assets/maison-alhambra-tobacco-touch.webp`,
     mood: "Warm · Tobacco",
     notes: "Tobacco · Spice · Cacao",
     category: "unisex",
