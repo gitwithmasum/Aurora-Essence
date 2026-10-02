@@ -150,7 +150,7 @@ const products: Product[] = [
       "notes": "Fruit · Vanilla · Powdery Musk",
       "category": "attar",
       "tone": "from-amber-900/60 to-black",
-      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-ahmar-cpo.webp`
+      "image": `${import.meta.env.BASE_URL}assets/swiss-arabian-shaghaf-oud-ahmar-cpo-gold.webp`
   },
   {
       "brand": "SWISS ARABIAN",
