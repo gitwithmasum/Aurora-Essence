@@ -119,6 +119,7 @@ const products: Product[] = [
   {
       "brand": "AL REHAB",
       "name": "Choco Musk Oil",
+      "image": `${import.meta.env.BASE_URL}assets/al-rehab-choco-musk-oil-gold.webp`,
       "mood": "Chocolate · Vanilla · Musk",
       "notes": "Chocolate, Flowers, Musk, Vanilla",
       "category": "attar",
@@ -605,7 +606,7 @@ profiles["9PM Rebel"] = {"top":"Mandarin, Pineapple, Granny Smith Apple","middle
 Object.assign(profiles, {
   "Choco Musk Oil": {
     "source": "https://al-rehab.com/product/choco-musk/",
-    "size": "3 ml oil — confirm selected bottle size",
+    "size": "6 ml roll-on oil — as shown in the product photo",
     "top": "Opening not separately published",
     "middle": "Heart not separately published",
     "base": "Base not separately published",
