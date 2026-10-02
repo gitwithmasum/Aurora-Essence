@@ -300,22 +300,6 @@ const products: Product[] = [
     category: "gifts",
     tone: "from-zinc-500/60 to-black",
   },
-  {
-    brand: "AURORA CURATION",
-    name: "Her Discovery Set",
-    mood: "Elegant scent selection",
-    notes: "Three curated feminine profiles",
-    category: "gifts",
-    tone: "from-rose-300/60 to-rose-950",
-  },
-  {
-    brand: "AURORA CURATION",
-    name: "Arabian Duo",
-    mood: "A shared fragrance story",
-    notes: "Two complementary scent profiles",
-    category: "gifts",
-    tone: "from-amber-400/60 to-neutral-950",
-  },
 ];
 
 const profiles: Record<string, Profile> = {
