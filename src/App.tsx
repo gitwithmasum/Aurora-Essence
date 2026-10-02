@@ -284,6 +284,7 @@ const products: Product[] = [
   {
     brand: "SWISS ARABIAN",
     name: "Musk Tahara",
+    image: `${import.meta.env.BASE_URL}assets/swiss-arabian-musk-tahara-gold.webp`,
     mood: "Clean · Musky",
     notes: "White Musk · Powder · Florals",
     category: "attar",
