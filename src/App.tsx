@@ -227,6 +227,7 @@ const products: Product[] = [
   {
     brand: "AFNAN",
     name: "Modest Deux",
+    image: `${import.meta.env.BASE_URL}assets/afnan-modest-deux-gold.webp`,
     mood: "Sweet · Luxurious",
     notes: "Cherry · Chocolate · Patchouli",
     category: "womens",
