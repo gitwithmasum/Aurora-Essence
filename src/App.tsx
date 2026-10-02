@@ -159,7 +159,7 @@ const products: Product[] = [
       "notes": "Plum · Florals · Oud",
       "category": "attar",
       "tone": "from-amber-900/60 to-black",
-      "image": `${import.meta.env.BASE_URL}assets/attar-layali-2.webp`
+      "image": `${import.meta.env.BASE_URL}assets/swiss-arabian-layali-cpo-gold.webp`
   },
   {
       "brand": "SWISS ARABIAN",
