@@ -39,6 +39,7 @@ type CartItem = {
 const formatOptions = (product: Product) => {
   if (product.name === "His Discovery Set") return ["3 × 5 ml decants — 15 ml total", "3 × 10 ml decants — 30 ml total"];
   if (product.category === "gifts") return ["Gift set — ask for details"];
+  if (product.category === "attar" && profiles[product.name]?.size) return [profiles[product.name].size!];
   if (product.category === "attar") {
     return product.name === "Soft Oil" || product.name === "Choco Musk"
       ? ["6 ml perfume oil"]
@@ -115,6 +116,75 @@ const scentMatches: Record<string, string[]> = {
 };
 
 const products: Product[] = [
+  {
+      "brand": "AL REHAB",
+      "name": "Choco Musk Oil",
+      "mood": "Chocolate · Vanilla · Musk",
+      "notes": "Chocolate, Flowers, Musk, Vanilla",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black"
+  },
+  {
+      "brand": "SWISS ARABIAN",
+      "name": "Shaghaf Oud CPO",
+      "mood": "Oud · Gourmand",
+      "notes": "Saffron · Oud · Vanilla",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black",
+      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-cpo.webp`
+  },
+  {
+      "brand": "SWISS ARABIAN",
+      "name": "Shaghaf Oud Tonka CPO",
+      "mood": "Gourmand · Amber",
+      "notes": "Almond · Tonka · Vanilla",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black",
+      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-tonka-cpo.webp`
+  },
+  {
+      "brand": "SWISS ARABIAN",
+      "name": "Shaghaf Oud Ahmar CPO",
+      "mood": "Fruity · Floral · Amber",
+      "notes": "Fruit · Vanilla · Powdery Musk",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black",
+      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-ahmar-cpo.webp`
+  },
+  {
+      "brand": "SWISS ARABIAN",
+      "name": "Layali CPO",
+      "mood": "Fruity · Floral · Oud",
+      "notes": "Plum · Florals · Oud",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black",
+      "image": `${import.meta.env.BASE_URL}assets/attar-layali-2.webp`
+  },
+  {
+      "brand": "SWISS ARABIAN",
+      "name": "Attar Mubakhar",
+      "mood": "Leather · Gourmand · Woody",
+      "notes": "Saffron · Resins · Amber",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black",
+      "image": `${import.meta.env.BASE_URL}assets/attar-attar-mubakhar.webp`
+  },
+  {
+      "brand": "AJMAL",
+      "name": "Mukhallat Misk Special",
+      "mood": "Rose · Vanilla · Oud",
+      "notes": "Rose · Vanilla · Oud",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black"
+  },
+  {
+      "brand": "AJMAL",
+      "name": "Khofooq",
+      "mood": "Balsamic · Musky",
+      "notes": "Balsam · Musk",
+      "category": "attar",
+      "tone": "from-amber-900/60 to-black"
+  },
   {
     brand: "CHANEL",
     name: "BLEU DE CHANEL EDP",
@@ -531,6 +601,121 @@ profiles["Asad"] = {"top":"Black Pepper, Pineapple, Tobacco","middle":"Coffee, I
 profiles["Najdia"] = {"top":"Grapefruit, Mandarin","middle":"Spicy Notes, Rose, Cinnamon","base":"Amber, Leather, Patchouli, Woody Notes","type":"EDP","season":"Warm days","time":"Day and evening","suitable":"Daily wear, university and casual outings","source":"https://lattafa.com/product/najdia/","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
 profiles["Qaed Al Fursan"] = {"top":"Saffron, Pineapple","middle":"Jasmine, Fir Balsam","base":"Oud Wood, Cedarwood, Amber","type":"Unisex EDP","season":"All year","time":"Day and evening","suitable":"Casual outings and evening occasions","source":"https://lattafa.com/product/qaed-al-fursan/","size":"90 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
 profiles["9PM Rebel"] = {"top":"Mandarin, Pineapple, Granny Smith Apple","middle":"Cedarwood, Oakmoss, Vanilla","base":"Caramel, Dry Woods, Ambergris, Musk","type":"Unisex EDP","season":"All year; start light in heat","time":"Day and night","suitable":"Casual outings, dates and evening occasions","source":"https://afnan.com/products/9-pm-rebel","size":"100 ml","longevity":"No fixed duration verified; varies by skin and conditions*","projection":"Varies by skin, setting and spray count","usage":"Start with 3 sprays on the neck and pulse points; allow the fragrance to settle before adjusting up to 5. Use less in heat or enclosed spaces."};
+
+Object.assign(profiles, {
+  "Choco Musk Oil": {
+    "source": "https://al-rehab.com/product/choco-musk/",
+    "size": "3 ml oil — confirm selected bottle size",
+    "top": "Opening not separately published",
+    "middle": "Heart not separately published",
+    "base": "Base not separately published",
+    "type": "Perfume Oil / Attar",
+    "season": "All year; light application in heat (wearing suggestion)",
+    "time": "Day and evening (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Shaghaf Oud CPO": {
+    "source": "https://swissarabian.com/products/shaghaf-oud-cpo",
+    "size": "Confirm oil bottle size in inbox",
+    "top": "Saffron, Oud",
+    "middle": "Rose, Praline, Oud",
+    "base": "Oud, Vanilla",
+    "type": "Perfume Oil / Attar",
+    "season": "Cool seasons (wearing suggestion)",
+    "time": "Evening and night (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Shaghaf Oud Tonka CPO": {
+    "source": "https://swissarabian.com/collections/all-products-1/products/shaghaf-oud-tonka-cpo",
+    "size": "12 ml CPO — confirm chosen format",
+    "top": "Almond",
+    "middle": "Cinnamon Bark, Tunisian Orange Flower, Turkish Rose",
+    "base": "Tonka, Vanilla, Amberwood",
+    "type": "Perfume Oil / Attar",
+    "season": "Cool weather or air-conditioned settings (wearing suggestion)",
+    "time": "Evening (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Shaghaf Oud Ahmar CPO": {
+    "source": "https://uae.swissarabian.com/collections/perfume-oil-best-sellers/products/shaghaf-oud-ahmar-cpo",
+    "size": "12 ml CPO — confirm chosen format",
+    "top": "Bergamot, Iris, Freesia, Melon, Peach",
+    "middle": "Tonka, Amber, Apple, Rose",
+    "base": "Cedarwood, Sandalwood, Amber, Vanilla, Powdery Musk, Oud",
+    "type": "Perfume Oil / Attar",
+    "season": "Mild weather; light application in heat (wearing suggestion)",
+    "time": "Day and evening (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Layali CPO": {
+    "source": "https://us.swissarabian.com/products/layali-2",
+    "size": "15 ml CPO — distinct from Layali EDP",
+    "top": "Black Currant, Orange Flower, Plum",
+    "middle": "Ylang Ylang, Rose, Jasmine",
+    "base": "Oud, Amber",
+    "type": "Women’s Concentrated Perfume Oil",
+    "season": "Cooler months (wearing suggestion)",
+    "time": "Evening (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Attar Mubakhar": {
+    "source": "https://uae.swissarabian.com/products/attar-mubakhar",
+    "size": "20 ml CPO — confirm chosen format",
+    "top": "Thyme, Raspberry, Saffron",
+    "middle": "Jasmine, Resins",
+    "base": "Amber, Suede, Leather",
+    "type": "Perfume Oil / Attar",
+    "season": "Cooler seasons (wearing suggestion)",
+    "time": "Night (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Mukhallat Misk Special": {
+    "source": "https://en-om.ajmal.com/perfume-oils/mukhallat-oil",
+    "size": "12 ml perfume oil — confirm chosen format",
+    "top": "Rose, Vanilla, Oud are listed scent notes; separate opening not verified",
+    "middle": "Separate heart pyramid not verified",
+    "base": "Separate base pyramid not verified",
+    "type": "Perfume Oil / Attar",
+    "season": "Mild or cool weather (wearing suggestion)",
+    "time": "Day and evening (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  },
+  "Khofooq": {
+    "source": "https://sa.ajmal.com/en/blogs/news/5-reasons-why-you-should-choose-ajmal-perfumes-for-eid",
+    "size": "Perfume oil — ask for bottle size",
+    "top": "Balsam and Musk are brand-described accords; separate opening not verified",
+    "middle": "Separate heart pyramid not verified",
+    "base": "Separate base pyramid not verified",
+    "type": "Perfume Oil / Attar",
+    "season": "Cool evenings (wearing suggestion)",
+    "time": "Evening and night (wearing suggestion)",
+    "suitable": "Personal wear, gifting and fragrance exploration; confirm availability in inbox",
+    "longevity": "No fixed duration verified; varies by skin, weather and amount applied*",
+    "projection": "Varies by scent, skin and application",
+    "usage": "Apply a tiny dab to clean pulse points and let it settle before adding more. This is an oil, not a spray. Avoid eyes and irritated skin; oil may stain fabric."
+  }
+});
 
 const sections = [
   {
