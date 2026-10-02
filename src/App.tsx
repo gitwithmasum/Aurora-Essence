@@ -132,7 +132,7 @@ const products: Product[] = [
       "notes": "Saffron · Oud · Vanilla",
       "category": "attar",
       "tone": "from-amber-900/60 to-black",
-      "image": `${import.meta.env.BASE_URL}assets/attar-shaghaf-oud-cpo.webp`
+      "image": `${import.meta.env.BASE_URL}assets/swiss-arabian-shaghaf-oud-cpo-gold.webp`
   },
   {
       "brand": "SWISS ARABIAN",
