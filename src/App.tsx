@@ -168,7 +168,7 @@ const products: Product[] = [
       "notes": "Saffron · Resins · Amber",
       "category": "attar",
       "tone": "from-amber-900/60 to-black",
-      "image": `${import.meta.env.BASE_URL}assets/attar-attar-mubakhar.webp`
+      "image": `${import.meta.env.BASE_URL}assets/swiss-arabian-attar-mubakhar-gold.webp`
   },
   {
       "brand": "AJMAL",
