@@ -115,6 +115,15 @@ const scentMatches: Record<string, string[]> = {
 
 const products: Product[] = [
   {
+    brand: "AL REHAB",
+    name: "Choco Musk Spray",
+    mood: "Chocolate · Vanilla · Musk",
+    notes: "Chocolate · Vanilla · Musk",
+    category: "unisex",
+    tone: "from-amber-900/60 to-black",
+    image: `${import.meta.env.BASE_URL}assets/al-rehab-choco-musk-spray-gold.webp`,
+  },
+  {
     brand: "CHANEL",
     name: "BLEU DE CHANEL EDP",
     mood: "Aromatic · Woody · Ambery",
@@ -315,6 +324,19 @@ const products: Product[] = [
 ];
 
 const profiles: Record<string, Profile> = {
+  "Choco Musk Spray": {
+    top: "Chocolate and vanilla scent character; separate top-note pyramid not verified",
+    middle: "Sweet gourmand character; separate heart-note pyramid not verified",
+    base: "Musky character; separate base-note pyramid not verified",
+    type: "Unisex perfume spray — distinct from the 6 ml oil",
+    size: "Confirm bottle size and concentration from the actual box before ordering",
+    season: "Suggested for cool weather or air-conditioned settings; use lightly in heat",
+    time: "Day and evening",
+    suitable: "Casual wear, café outings and layering",
+    longevity: "No fixed duration verified for this spray; varies by skin and conditions*",
+    projection: "Varies by application, skin and setting",
+    usage: "Start with 3 sprays on the neck and pulse points. Let the fragrance settle before adjusting up to 5; use less in heat or enclosed spaces. This is a spray, not a roll-on oil.",
+  },
   "BLEU DE CHANEL EDP": {
     top: "Fresh citrus accord (opening described by CHANEL)",
     middle: "Aromatic, ambery and musky character; no separate official heart pyramid published",
