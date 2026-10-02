@@ -37,6 +37,7 @@ type CartItem = {
 };
 
 const formatOptions = (product: Product) => {
+  if (product.name === "His Discovery Set") return ["3 × 5 ml decants — 15 ml total", "3 × 10 ml decants — 30 ml total"];
   if (product.category === "gifts") return ["Gift set — ask for details"];
   if (product.category === "attar") {
     return product.name === "Soft Oil" || product.name === "Choco Musk"
@@ -293,8 +294,9 @@ const products: Product[] = [
   {
     brand: "AURORA CURATION",
     name: "His Discovery Set",
-    mood: "Bold scent selection",
-    notes: "Three curated masculine profiles",
+    image: `${import.meta.env.BASE_URL}assets/his-discovery-set-gold.webp`,
+    mood: "Fresh · Spicy · Sweet",
+    notes: "Lattafa Najdia · Lattafa Asad · Afnan 9PM",
     category: "gifts",
     tone: "from-zinc-500/60 to-black",
   },
@@ -1835,6 +1837,29 @@ export default function App() {
                     </p>
                   </>
                 ) : (
+                  selectedProduct.name === "His Discovery Set" ? (
+                    <div className="mt-8 space-y-4">
+                      <div className="rounded-[20px] border border-gold/30 bg-gold/5 p-6">
+                        <p className="text-xs uppercase tracking-[.15em] text-gold">Three scents. Your next signature.</p>
+                        <p className="mt-3 text-sm leading-7 text-stone-300">Explore fresh daytime wear, warm spice and sweet evening character before choosing a full bottle.</p>
+                        {[
+                          ["Lattafa Najdia", "Fresh daytime selection · everyday outings"],
+                          ["Lattafa Asad", "Warm, spicy selection · cool evenings"],
+                          ["Afnan 9PM", "Sweet evening selection · dates and occasions"],
+                        ].map(([name, description]) => (
+                          <div key={name} className="mt-3 rounded-2xl border border-gold/20 bg-black/40 p-4">
+                            <p className="text-sm text-gold-light">{name}</p>
+                            <p className="mt-1 text-xs leading-6 text-stone-400">{description}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="rounded-[20px] border border-gold/25 p-6 text-sm leading-7 text-stone-300">
+                        <p><strong className="text-gold-light">Choose your format:</strong> Three 5 ml atomizers (15 ml total) or three 10 ml atomizers (30 ml total).</p>
+                        <p className="mt-3">Decanted and curated by Aurora Essence; not a manufacturer gift set. Image shows a packaging concept; actual atomizers and presentation may differ.</p>
+                        <p className="mt-3">Confirm fragrance availability, packaging and price in inbox before ordering. Start with a small application and try each scent separately; longevity varies by fragrance, skin and weather.</p>
+                      </div>
+                    </div>
+                  ) : (
                   <div className="mt-8 rounded-[20px] border border-gold/30 bg-gold/5 p-6 text-sm leading-7 text-stone-300">
                     <strong className="text-gold-light">
                       Curated gift set:
@@ -1842,6 +1867,7 @@ export default function App() {
                     {selectedProduct.notes}. Contact Aurora Essence to customize
                     the fragrance selection and presentation.
                   </div>
+                  )
                 )}
               </div>
             </div>
