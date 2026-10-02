@@ -265,6 +265,7 @@ const products: Product[] = [
   {
     brand: "AL REHAB",
     name: "Soft Oil",
+    image: `${import.meta.env.BASE_URL}assets/al-rehab-soft-oil-gold.webp`,
     mood: "Citrus · Vanilla",
     notes: "Lemon · Caramel · Musk",
     category: "attar",
