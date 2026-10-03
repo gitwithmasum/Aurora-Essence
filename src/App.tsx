@@ -1140,8 +1140,8 @@ export default function App() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-black/10" />
         <div className="relative mx-auto w-full max-w-[1500px] px-6 py-24 lg:px-20">
           <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">CURATED MIDDLE EASTERN FRAGRANCES</p>
-          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-[750px] font-display text-6xl font-semibold leading-[.95] tracking-tight sm:text-8xl lg:text-[96px]">Discover your<br /><em className="font-medium text-gold-light">Arabian aura.</em></h1>
-          <p className="hero-reveal hero-reveal-3 mt-8 max-w-md text-sm leading-7 text-stone-200">From rich oud to warm amber and modern signature scents—explore fragrances for every mood, memory and moment.</p>
+          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-[750px] font-display text-6xl font-semibold leading-[.95] tracking-tight sm:text-8xl lg:text-[96px]">Discover Your<br /><em className="font-medium text-gold-light">Arabian Aura</em></h1>
+          <p className="hero-reveal hero-reveal-3 mt-8 max-w-md text-sm leading-7 text-stone-200">Curated fragrances. Timeless presence.</p>
           <div className="hero-reveal hero-reveal-4 mt-9 flex flex-wrap gap-4">
             <a href="#collection" className="inline-flex items-center gap-6 rounded-full border border-gold bg-gradient-to-r from-gold-dark to-gold-light px-7 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black">Explore Collection <ArrowUpRight size={15} /></a>
             <a href="#finder" className="inline-flex items-center gap-3 rounded-full border border-gold/50 bg-black/40 px-6 py-4 text-[11px] uppercase tracking-[.16em] text-gold-light">Find your scent <ChevronRight size={15} /></a>
