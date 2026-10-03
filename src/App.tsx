@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -17,7 +17,6 @@ import {
   UserRound,
   X,
 } from "lucide-react";
-import TriangleLedFront from "@/components/ui/triangle-led-front";
 
 type Product = {
   brand: string;
@@ -809,15 +808,6 @@ function ProductCard({
 }
 
 export default function App() {
-  const heroProducts = ["Khamrah", "Asad", "9PM"].map((name) => products.find((product) => product.name === name)!);
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [heroPaused, setHeroPaused] = useState(false);
-  useEffect(() => {
-    if (heroPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setHeroIndex((index) => (index + 1) % 3), 5000);
-    return () => window.clearInterval(timer);
-  }, [heroPaused]);
-  const heroProduct = heroProducts[heroIndex];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -1145,65 +1135,16 @@ export default function App() {
         </div>
       </header>
 
-      <section
-        id="home"
-        className="relative flex min-h-screen items-center overflow-hidden pt-24"
-      >
-        <div className="absolute inset-0 opacity-40">
-          <TriangleLedFront />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/15" />
-        <div aria-hidden="true" className="hero-aurora pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="hero-aurora-glow absolute -right-[22%] top-[4%] h-[85%] w-[85%] rounded-full bg-[radial-gradient(ellipse,rgba(205,156,66,.24),rgba(126,82,161,.12)_38%,transparent_70%)] blur-3xl" />
-          <div className="hero-aurora-ring absolute right-[8%] top-[20%] h-[min(55vw,560px)] w-[min(55vw,560px)] rounded-full border border-gold/20" />
-          <div className="hero-aurora-ring hero-aurora-ring-delayed absolute right-[14%] top-[27%] h-[min(42vw,420px)] w-[min(42vw,420px)] rounded-full border border-gold/15" />
-        </div>
-        <div className="relative z-10 mx-auto grid w-full max-w-[1500px] items-center gap-12 px-6 py-16 lg:grid-cols-[1.15fr_1fr] lg:px-20">
-          <div>
-          <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">
-            CURATED ARABIAN FRAGRANCES
-          </p>
-          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-4xl font-display text-6xl font-semibold leading-[.82] tracking-tight sm:text-8xl lg:text-[clamp(64px,6.5vw,96px)]">
-            Wear the aura.
-            <br />
-            <em className="font-medium text-gold-light">Own the moment.</em>
-          </h1>
-          <p className="hero-reveal hero-reveal-3 mt-9 max-w-xl text-sm leading-7 text-stone-400">
-            A modern destination for bold Middle Eastern scents—selected for
-            every mood, every memory, and every signature.
-          </p>
-          <div className="hero-reveal hero-reveal-4 mt-10 flex flex-wrap gap-5">
-            <a
-              href="#collection"
-              className="inline-flex items-center gap-8 bg-gradient-to-r from-gold-dark to-gold-light px-6 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black"
-            >
-              Explore Collection <ArrowUpRight size={15} />
-            </a>
-            <a
-              href="#finder"
-              className="inline-flex items-center gap-3 px-4 py-4 text-[11px] uppercase tracking-[.16em]"
-            >
-              Find your scent <ChevronRight size={15} className="text-gold" />
-            </a>
-          </div>
-          </div>
-          <div className="mx-auto w-full max-w-[480px] rounded-[32px] border border-gold/35 bg-black/80 p-4 shadow-[0_0_70px_rgba(213,173,85,.12)] sm:p-6"
-            onMouseEnter={() => setHeroPaused(true)} onMouseLeave={() => setHeroPaused(false)}
-            onFocusCapture={() => setHeroPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setHeroPaused(false); }}
-            role="region" aria-label="Featured fragrances">
-            <p className="mb-4 text-center text-[10px] tracking-[.3em] text-gold">THE SIGNATURE EDIT</p>
-            <div className="relative aspect-square overflow-hidden rounded-[24px] border border-gold/20 bg-black">
-              {heroProducts.map((product, index) => <img key={product.name} src={`${import.meta.env.BASE_URL}${product.image}`} alt={index === heroIndex ? `${product.brand} ${product.name}` : ""} aria-hidden={index !== heroIndex} className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 motion-reduce:transition-none ${index === heroIndex ? "opacity-100" : "opacity-0"}`} />)}
-            </div>
-            <div className="mt-5 text-center">
-              <p className="text-[10px] uppercase tracking-[.22em] text-gold">{heroProduct.brand}</p>
-              <h2 className="mt-2 font-display text-3xl">{heroProduct.name}</h2>
-              <p className="mt-2 text-xs text-stone-400">{heroProduct.notes}</p>
-              <button onClick={() => setSelectedProduct(heroProduct)} className="mt-5 rounded-full border border-gold/60 px-8 py-3 text-[10px] uppercase tracking-[.2em] text-gold-light transition hover:bg-gold/10">Quick View <ArrowUpRight className="ml-2 inline" size={13} /></button>
-              <div className="mt-5 flex justify-center gap-3">
-                {heroProducts.map((product, index) => <button key={product.name} onClick={() => setHeroIndex(index)} aria-label={`Show ${product.name}`} aria-pressed={index === heroIndex} className={`h-3 rounded-full border border-gold/60 transition-all ${index === heroIndex ? "w-8 bg-gold" : "w-3 bg-transparent"}`} />)}
-              </div>
-            </div>
+      <section id="home" className="relative isolate flex min-h-[620px] items-center overflow-hidden pt-24 sm:min-h-[700px] lg:min-h-[min(820px,100vh)]">
+        <img src={`${import.meta.env.BASE_URL}assets/aurora-arabian-hero-black-gold.webp`} alt="" aria-hidden="true" fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center] lg:object-center" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-black/10" />
+        <div className="relative mx-auto w-full max-w-[1500px] px-6 py-24 lg:px-20">
+          <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">CURATED MIDDLE EASTERN FRAGRANCES</p>
+          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-[750px] font-display text-6xl font-semibold leading-[.95] tracking-tight sm:text-8xl lg:text-[96px]">Discover your<br /><em className="font-medium text-gold-light">Arabian aura.</em></h1>
+          <p className="hero-reveal hero-reveal-3 mt-8 max-w-md text-sm leading-7 text-stone-200">From rich oud to warm amber and modern signature scents—explore fragrances for every mood, memory and moment.</p>
+          <div className="hero-reveal hero-reveal-4 mt-9 flex flex-wrap gap-4">
+            <a href="#collection" className="inline-flex items-center gap-6 rounded-full border border-gold bg-gradient-to-r from-gold-dark to-gold-light px-7 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black">Explore Collection <ArrowUpRight size={15} /></a>
+            <a href="#finder" className="inline-flex items-center gap-3 rounded-full border border-gold/50 bg-black/40 px-6 py-4 text-[11px] uppercase tracking-[.16em] text-gold-light">Find your scent <ChevronRight size={15} /></a>
           </div>
         </div>
       </section>
