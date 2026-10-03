@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -807,7 +807,25 @@ function ProductCard({
   );
 }
 
+const heroSlides = [
+  { image: "aurora-signature-hero.webp", eyebrow: "AURORA ESSENCE", title: "Discover Your", accent: "Signature Scent", subtitle: "Curated fragrances. Timeless presence." },
+  { image: "aurora-hero-fresh.webp", eyebrow: "THE FRESH EDIT", title: "A Fresh Start,", accent: "Every Day", subtitle: "Bright notes for everyday moments." },
+  { image: "aurora-hero-evening.webp", eyebrow: "THE EVENING EDIT", title: "Leave a Lasting", accent: "Impression", subtitle: "Warm scents for memorable evenings." },
+  { image: "aurora-hero-floral.webp", eyebrow: "THE FLORAL EDIT", title: "Elegance in", accent: "Every Note", subtitle: "Explore soft florals and graceful blends." },
+  { image: "aurora-hero-attar.webp", eyebrow: "ATTAR & PERFUME OILS", title: "Tradition, Worn", accent: "Your Way", subtitle: "Discover the depth of perfume oils." },
+];
+
 export default function App() {
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroPaused, setHeroPaused] = useState(false);
+  useEffect(() => {
+    if (heroPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setHeroIndex((index) => (index + 1) % heroSlides.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [heroPaused]);
+  const heroSlide = heroSlides[heroIndex];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -1136,16 +1154,22 @@ export default function App() {
       </header>
 
       <section id="home" className="relative isolate mx-3 mt-24 flex min-h-[560px] scroll-mt-24 items-center overflow-hidden rounded-[28px] border border-gold/35 sm:mx-6 sm:min-h-[640px] sm:rounded-[40px] lg:mx-9 lg:min-h-[min(760px,85vh)]">
-        <img src={`${import.meta.env.BASE_URL}assets/aurora-signature-hero.webp`} alt="" aria-hidden="true" fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center] lg:object-center" />
+        {heroSlides.map((slide, index) => (
+          <img key={slide.image} src={`${import.meta.env.BASE_URL}assets/${slide.image}`} alt="" aria-hidden="true" fetchPriority={index === 0 ? "high" : "auto"} className={`absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center] transition-opacity duration-1000 motion-reduce:transition-none lg:object-center ${index === heroIndex ? "opacity-100" : "opacity-0"}`} />
+        ))}
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-black/10" />
         <div className="relative mx-auto w-full max-w-[1500px] px-6 py-24 lg:px-20">
-          <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">AURORA ESSENCE</p>
-          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-[750px] font-display text-6xl font-semibold leading-[.95] tracking-tight sm:text-8xl lg:text-[96px]">Discover Your<br /><em className="font-medium text-gold-light">Signature Scent</em></h1>
-          <p className="hero-reveal hero-reveal-3 mt-8 max-w-md text-sm leading-7 text-stone-200">Curated fragrances. Timeless presence.</p>
+          <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">{heroSlide.eyebrow}</p>
+          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-[750px] font-display text-6xl font-semibold leading-[.95] tracking-tight sm:text-8xl lg:text-[96px] min-h-[180px] sm:min-h-[270px]">{heroSlide.title}<br /><em className="font-medium text-gold-light">{heroSlide.accent}</em></h1>
+          <p className="hero-reveal hero-reveal-3 mt-8 max-w-md text-sm leading-7 text-stone-200">{heroSlide.subtitle}</p>
           <div className="hero-reveal hero-reveal-4 mt-9 flex flex-wrap gap-4">
             <a href="#collection" className="inline-flex items-center gap-6 rounded-full border border-gold bg-gradient-to-r from-gold-dark to-gold-light px-7 py-4 text-[11px] font-semibold uppercase tracking-[.16em] text-black">Explore Collection <ArrowUpRight size={15} /></a>
             <a href="#finder" className="inline-flex items-center gap-3 rounded-full border border-gold/50 bg-black/40 px-6 py-4 text-[11px] uppercase tracking-[.16em] text-gold-light">Find your scent <ChevronRight size={15} /></a>
           </div>
+        </div>
+        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
+          {heroSlides.map((slide, index) => <button key={slide.image} type="button" aria-label={`Show ${slide.eyebrow.toLowerCase()} banner`} aria-current={index === heroIndex ? "true" : undefined} onClick={() => setHeroIndex(index)} className={`h-3 w-3 rounded-full border border-gold transition-colors ${index === heroIndex ? "bg-gold" : "bg-black/50"}`} />)}
+          <button type="button" onClick={() => setHeroPaused(!heroPaused)} aria-label={heroPaused ? "Play banner rotation" : "Pause banner rotation"} className="ml-3 rounded-full border border-gold/50 bg-black/60 px-3 py-1 text-xs text-gold-light">{heroPaused ? "Play" : "Pause"}</button>
         </div>
       </section>
 
