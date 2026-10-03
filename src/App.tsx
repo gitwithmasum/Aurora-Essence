@@ -182,6 +182,7 @@ const products: Product[] = [
   {
       "brand": "AJMAL",
       "name": "Khofooq",
+    "image": "assets/ajmal-khofooq-gold.webp",
       "mood": "Balsamic · Musky",
       "notes": "Balsam · Musk",
       "category": "attar",
