@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -809,6 +809,15 @@ function ProductCard({
 }
 
 export default function App() {
+  const heroProducts = ["Khamrah", "Asad", "9PM"].map((name) => products.find((product) => product.name === name)!);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroPaused, setHeroPaused] = useState(false);
+  useEffect(() => {
+    if (heroPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setHeroIndex((index) => (index + 1) % 3), 5000);
+    return () => window.clearInterval(timer);
+  }, [heroPaused]);
+  const heroProduct = heroProducts[heroIndex];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -1140,7 +1149,7 @@ export default function App() {
         id="home"
         className="relative flex min-h-screen items-center overflow-hidden pt-24"
       >
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 opacity-40">
           <TriangleLedFront />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/15" />
@@ -1149,11 +1158,12 @@ export default function App() {
           <div className="hero-aurora-ring absolute right-[8%] top-[20%] h-[min(55vw,560px)] w-[min(55vw,560px)] rounded-full border border-gold/20" />
           <div className="hero-aurora-ring hero-aurora-ring-delayed absolute right-[14%] top-[27%] h-[min(42vw,420px)] w-[min(42vw,420px)] rounded-full border border-gold/15" />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-28 lg:px-20">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1500px] items-center gap-12 px-6 py-16 lg:grid-cols-[1.15fr_1fr] lg:px-20">
+          <div>
           <p className="hero-reveal text-[11px] font-semibold tracking-[.3em] text-gold">
             CURATED ARABIAN FRAGRANCES
           </p>
-          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-4xl font-display text-6xl font-semibold leading-[.82] tracking-tight sm:text-8xl lg:text-[112px]">
+          <h1 className="hero-reveal hero-reveal-2 mt-7 max-w-4xl font-display text-6xl font-semibold leading-[.82] tracking-tight sm:text-8xl lg:text-[clamp(64px,6.5vw,96px)]">
             Wear the aura.
             <br />
             <em className="font-medium text-gold-light">Own the moment.</em>
@@ -1175,6 +1185,25 @@ export default function App() {
             >
               Find your scent <ChevronRight size={15} className="text-gold" />
             </a>
+          </div>
+          </div>
+          <div className="mx-auto w-full max-w-[480px] rounded-[32px] border border-gold/35 bg-black/80 p-4 shadow-[0_0_70px_rgba(213,173,85,.12)] sm:p-6"
+            onMouseEnter={() => setHeroPaused(true)} onMouseLeave={() => setHeroPaused(false)}
+            onFocusCapture={() => setHeroPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setHeroPaused(false); }}
+            role="region" aria-label="Featured fragrances">
+            <p className="mb-4 text-center text-[10px] tracking-[.3em] text-gold">THE SIGNATURE EDIT</p>
+            <div className="relative aspect-square overflow-hidden rounded-[24px] border border-gold/20 bg-black">
+              {heroProducts.map((product, index) => <img key={product.name} src={`${import.meta.env.BASE_URL}${product.image}`} alt={index === heroIndex ? `${product.brand} ${product.name}` : ""} aria-hidden={index !== heroIndex} className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 motion-reduce:transition-none ${index === heroIndex ? "opacity-100" : "opacity-0"}`} />)}
+            </div>
+            <div className="mt-5 text-center">
+              <p className="text-[10px] uppercase tracking-[.22em] text-gold">{heroProduct.brand}</p>
+              <h2 className="mt-2 font-display text-3xl">{heroProduct.name}</h2>
+              <p className="mt-2 text-xs text-stone-400">{heroProduct.notes}</p>
+              <button onClick={() => setSelectedProduct(heroProduct)} className="mt-5 rounded-full border border-gold/60 px-8 py-3 text-[10px] uppercase tracking-[.2em] text-gold-light transition hover:bg-gold/10">Quick View <ArrowUpRight className="ml-2 inline" size={13} /></button>
+              <div className="mt-5 flex justify-center gap-3">
+                {heroProducts.map((product, index) => <button key={product.name} onClick={() => setHeroIndex(index)} aria-label={`Show ${product.name}`} aria-pressed={index === heroIndex} className={`h-3 rounded-full border border-gold/60 transition-all ${index === heroIndex ? "w-8 bg-gold" : "w-3 bg-transparent"}`} />)}
+              </div>
+            </div>
           </div>
         </div>
       </section>
