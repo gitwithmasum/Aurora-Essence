@@ -1135,7 +1135,7 @@ export default function App() {
         </div>
       </header>
 
-      <section id="home" className="relative isolate flex min-h-[620px] items-center overflow-hidden pt-24 sm:min-h-[700px] lg:min-h-[min(820px,100vh)]">
+      <section id="home" className="relative isolate mx-3 mt-24 flex min-h-[560px] scroll-mt-24 items-center overflow-hidden rounded-[28px] border border-gold/35 sm:mx-6 sm:min-h-[640px] sm:rounded-[40px] lg:mx-9 lg:min-h-[min(760px,85vh)]">
         <img src={`${import.meta.env.BASE_URL}assets/aurora-signature-hero.webp`} alt="" aria-hidden="true" fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center] lg:object-center" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-black/10" />
         <div className="relative mx-auto w-full max-w-[1500px] px-6 py-24 lg:px-20">
