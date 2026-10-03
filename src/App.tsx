@@ -173,6 +173,7 @@ const products: Product[] = [
   {
       "brand": "AJMAL",
       "name": "Mukhallat Misk Special",
+    "image": "assets/ajmal-mukhallat-misk-special-gold.webp",
       "mood": "Rose · Vanilla · Oud",
       "notes": "Rose · Vanilla · Oud",
       "category": "attar",
