@@ -1794,9 +1794,23 @@ export default function App() {
               মাধ্যমে মানুষকে নিজের presence আরও confidently প্রকাশ করতে সাহায্য
               করা।”
             </p>
-            <footer className="border-t border-gold/20 px-6 py-8 text-xs text-stone-400 lg:px-9">
-        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-5">
-          <p>© {new Date().getFullYear()} Aurora Essence · Discover Your Signature Aura.</p>
+            <footer className="border-t border-gold/30 bg-[linear-gradient(135deg,#151008_0%,#050505_45%,#161006_100%)] px-6 pb-8 pt-14 text-stone-300 lg:px-12">
+        <div className="mx-auto grid max-w-[1500px] gap-10 pb-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div>
+            <img src={`${import.meta.env.BASE_URL}assets/aurora-essence-logo.png`} alt="Aurora Essence" className="h-16 w-16 rounded-full border border-gold/40 object-cover" />
+            <h2 className="mt-5 font-display text-2xl text-gold-light">Aurora Essence</h2>
+            <p className="mt-3 max-w-xs text-sm leading-7 text-stone-400">Curated fragrances. Timeless presence.</p>
+            <a href="https://m.me/auroraessenceofficial" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex rounded-full border border-gold/40 px-5 py-3 text-sm text-gold-light transition hover:bg-gold hover:text-black">Get fragrance updates in inbox</a>
+          </div>
+          {[{ title: "Customer Support", links: [{ label: "Contact Us", href: "https://m.me/auroraessenceofficial" }, { label: "Order Assistance", href: "#order-assistance" }, { label: "Ask About Delivery", href: "https://m.me/auroraessenceofficial" }] }, { title: "Shop", links: [{ label: "Men’s Perfume", href: "#mens-perfume" }, { label: "Women’s Perfume", href: "#womens-perfume" }, { label: "Unisex Fragrance", href: "#unisex-fragrance" }, { label: "Attar & Perfume Oil", href: "#attar-oil" }, { label: "Gift Sets", href: "#gift-sets" }] }, { title: "Quick Links", links: [{ label: "Home", href: "#home" }, { label: "Our Story", href: "#story" }, { label: "New Arrivals", href: "#new-arrivals" }, { label: "Arabian Bestsellers", href: "#bestsellers" }, { label: "Scent Finder", href: "#finder" }] }].map(({ title, links }) => (
+            <div key={title}>
+              <h3 className="font-display text-xl text-gold-light">{title}</h3>
+              <ul className="mt-5 space-y-3">{links.map(({ label, href }) => <li key={label}><a href={href} className="text-sm text-stone-400 transition hover:text-gold-light focus-visible:outline-gold">{label}</a></li>)}</ul>
+            </div>
+          ))}
+        </div>
+        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-5 border-t border-gold/20 pt-6">
+          <p className="text-xs text-stone-500">© {new Date().getFullYear()} Aurora Essence · Discover Your Signature Aura.</p>
           <nav aria-label="Aurora Essence social media" className="ml-auto flex items-center gap-3">
             {[{ label: "Facebook", href: "https://www.facebook.com/auroraessenceofficial/", Icon: Facebook }, { label: "Messenger", href: "https://m.me/auroraessenceofficial", Icon: MessageCircle }].map(({ label, href, Icon }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Aurora Essence on ${label}`} title={label} className="group grid h-12 w-12 place-items-center rounded-full border border-gold/50 bg-black/70 text-gold transition duration-300 hover:-translate-y-1 hover:border-gold-light hover:bg-gold hover:text-black hover:shadow-[0_0_24px_rgba(213,173,85,.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold motion-reduce:transform-none">
