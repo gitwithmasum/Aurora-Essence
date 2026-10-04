@@ -3,6 +3,7 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ChevronRight,
+  Facebook,
   Gift,
   Heart,
   Menu,
@@ -1793,9 +1794,18 @@ export default function App() {
               মাধ্যমে মানুষকে নিজের presence আরও confidently প্রকাশ করতে সাহায্য
               করা।”
             </p>
-            <footer className="mt-4 text-[10px] uppercase tracking-[.2em] text-gold">
-              The Aurora Essence vision
-            </footer>
+            <footer className="border-t border-gold/20 px-6 py-8 text-xs text-stone-400 lg:px-9">
+        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-5">
+          <p>© {new Date().getFullYear()} Aurora Essence · Discover Your Signature Aura.</p>
+          <nav aria-label="Aurora Essence social media" className="ml-auto flex items-center gap-3">
+            {[{ label: "Facebook", href: "https://www.facebook.com/auroraessenceofficial/", Icon: Facebook }, { label: "Messenger", href: "https://m.me/auroraessenceofficial", Icon: MessageCircle }].map(({ label, href, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Aurora Essence on ${label}`} title={label} className="group grid h-12 w-12 place-items-center rounded-full border border-gold/50 bg-black/70 text-gold transition duration-300 hover:-translate-y-1 hover:border-gold-light hover:bg-gold hover:text-black hover:shadow-[0_0_24px_rgba(213,173,85,.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold motion-reduce:transform-none">
+                <Icon size={20} strokeWidth={1.7} />
+              </a>
+            ))}
+          </nav>
+        </div>
+      </footer>
           </blockquote>
 
           <div className="mt-8 flex flex-wrap gap-3">
